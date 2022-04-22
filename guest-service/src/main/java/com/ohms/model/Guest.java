@@ -7,7 +7,16 @@ import javax.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Document(collection = "Guest")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Guest {
 	@Id
 	private int guestId;
@@ -28,60 +37,4 @@ public class Guest {
 	
 	@NotNull(message="Guest Address cannnot be null")
 	private String guestAddress;
-	
-	
-	
-	public int getGuestId() {
-		return guestId;
-	}
-	public void setGuestId(int guestId) {
-		this.guestId = guestId;
-	}
-	public String getGuestName() {
-		return guestName;
-	}
-	public void setGuestName(String guestName) {
-		this.guestName = guestName;
-	}
-	public int getGuestAge() {
-		return guestAge;
-	}
-	public void setGuestAge(int guestAge) {
-		this.guestAge = guestAge;
-	}
-	public long getGuestContactNumber() {
-		return guestContactNumber;
-	}
-	public void setGuestContactNumber(long guestContactNumber) {
-		this.guestContactNumber = guestContactNumber;
-	}
-	public String getGuestEmailId() {
-		return guestEmailId;
-	}
-	public void setGuestEmailId(String guestEmailId) {
-		this.guestEmailId = guestEmailId;
-	}
-	public String getGuestAddress() {
-		return guestAddress;
-	}
-	public void setGuestAddress(String guestAddress) {
-		this.guestAddress = guestAddress;
-	}
-	public Guest(int guestId, String guestName, int guestAge, long guestContactNumber, String guestEmailId,
-			String guestAddress) {
-		super();
-		this.guestId = guestId;
-		this.guestName = guestName;
-		this.guestAge = guestAge;
-		this.guestContactNumber = guestContactNumber;
-		this.guestEmailId = guestEmailId;
-		this.guestAddress = guestAddress;
-	}
-	public Guest() {
-		super();
-		// TODO Auto-generated constructor stub
-	}	
-	
-	
-
 }
