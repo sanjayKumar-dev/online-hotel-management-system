@@ -45,10 +45,10 @@ public class Controller {
 		return guestService.getGuestByEmailId(emailId);
 	}
 	
-	@PutMapping("/update/{gId}")
-	public String updateGuest(@RequestBody Guest guest,@PathVariable long gId) {
-		this.guestService.updateGuest(gId, guest);
-		return "Guest updated with guestId "+gId;
+	@PutMapping("/update/{id}")
+	public String updateGuest(@RequestBody Guest guest,@PathVariable long id) {
+		this.guestService.updateGuest(id, guest);
+		return "Guest updated with guestId "+id;
 	}
 	
 	@DeleteMapping("/delete/{id}")
