@@ -35,7 +35,7 @@ public class Controller {
 	}
 	
 	@GetMapping("/get/{roomId}")
-	public Optional<Room> getRoomById(@PathVariable int roomId) {
+	public Optional<Room> getRoomById(@PathVariable String roomId) {
 		return roomService.getRoomById(roomId);
 	}
 	
@@ -46,7 +46,7 @@ public class Controller {
 	}
 	
 	@DeleteMapping("/delete/{roomId}")
-	public String deleteRoom(@PathVariable int roomId) {
+	public String deleteRoom(@PathVariable String roomId) {
 		roomService.deleteRoom(roomId);
 		return "Deleted Successfully";
 	}

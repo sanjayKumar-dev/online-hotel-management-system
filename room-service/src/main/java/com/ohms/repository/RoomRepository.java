@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ohms.model.Room;
 
 @Repository
-public interface RoomRepository extends MongoRepository<Room, Integer> {
+public interface RoomRepository extends MongoRepository<Room, String> {
 	
 	List<Room> findByStatus(boolean status);
 }

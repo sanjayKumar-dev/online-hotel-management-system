@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Room {
 	@Id
-	private int roomId;
+	private String roomId;
 	private String roomType;
 	private int numberOfBeds;
 	private boolean status;
