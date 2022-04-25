@@ -12,6 +12,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entity class to store the data and fetch the data from database
+ *
+ */
+
+
 @Document(collection = "Guest")
 @Getter
 @Setter
@@ -28,8 +34,8 @@ public class Guest {
 	private int guestAge;
 	
 	@NotNull(message="Guest Contact Number cannnot be null")
-//	@Size(min = 10, message = "Contact Number Cannot be less than 10 digits")
-//	@Size(max = 10, message = "Contact Number Cannot be more than 10 digits")
+	@Size(min = 10, message = "Contact Number Cannot be less than 10 digits")
+	@Size(max = 10, message = "Contact Number Cannot be more than 10 digits")
 	private long guestContactNumber;
 	
 	@NotNull(message="Guest Email Id cannnot be null")

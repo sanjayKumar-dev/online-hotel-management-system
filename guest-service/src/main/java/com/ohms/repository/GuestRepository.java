@@ -5,10 +5,15 @@ import org.springframework.stereotype.Repository;
 
 import com.ohms.model.Guest;
 
+
+
+/**
+ * The Guest Repository interface used to extends function from MongoRepository Class.
+ *
+ */
 @Repository
 public interface GuestRepository extends MongoRepository<Guest, Integer> {
-	
-//	@Query("{'Guest.guestEmailId':?0}")
+
 	Guest findByGuestEmailId(String guestEmailId); 
 
 }

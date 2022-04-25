@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ohms.model.Guest;
 import com.ohms.service.GuestService;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+
+
+/**
+ * This is the controller class of Guest service Which is created for REST API
+ *
+ */
 
 @RestController
 @RequestMapping("/guest")
@@ -25,33 +33,39 @@ public class Controller {
 	private GuestService guestService;
 	
 	@PostMapping("/add")
+	@Operation(summary = "To add new Guest into Guest Database")
 	public String addGuest(@RequestBody Guest guest) {
 		guestService.addGuest(guest);
 		return "Guset added with Guest Id : " + guest.getGuestId();
 	}
 	
 	@GetMapping("/get")
+	@Operation(summary = "Return all the Guest Details in the form of list")
 	public List<Guest> getAllguest(){
-		return guestService.getAllGuest();
+		return guestService.getAllGuests();
 	}
 	
 	@GetMapping("/get/{id}")
+	@Operation(summary = "Return Guest Detail for requested id")
 	public Optional<Guest> getGuestById(@PathVariable int id) {
 		return guestService.getGuestById(id);
 	}
 	
 	@GetMapping("/getByEmail/{emailId}")
+	@Operation(summary = "Return Guest Detail for requested Email Id")
 	public Guest getGuestByEmailId(@PathVariable String emailId) {
 		return guestService.getGuestByEmailId(emailId);
 	}
 	
-	@PutMapping("/update/{id}")
-	public String updateGuest(@RequestBody Guest guest,@PathVariable long id) {
-		this.guestService.updateGuest(id, guest);
-		return "Guest updated with guestId "+id;
+	@PutMapping("/update")
+	@Operation(summary = "Update Guest Detail for requested Id")
+	public String updateGuest(@RequestBody Guest guest) {
+		this.guestService.updateGuest(guest);
+		return "Guest updated with guestId ";
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@Operation(summary = "Delete Guest Detail for requested Id")
 	public String deleteGuest(@PathVariable int id) {
 		this.guestService.deleteGuest(id);
 		return "Guest deleted with guestId"+id;
