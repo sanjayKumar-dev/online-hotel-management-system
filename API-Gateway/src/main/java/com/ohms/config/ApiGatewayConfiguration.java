@@ -12,25 +12,59 @@ public class ApiGatewayConfiguration {
 		return routeLocatorBuilder.routes()
 				.route(p->p
 						.path("/guest/get")
-						.uri("http://localhost:8081")
+						.uri("lb://guest-service/")
 						)
 				.route(p->p
 						.path("/guest/add")
-						.uri("http://localhost:8081")
+						.uri("lb://guest-service/")
 						)
 				.route(p->p
 						.path("/guest/get/{id}")
-						.uri("http://localhost:8081")
+						.uri("lb://guest-service/")
 						)
 				.route(p->p
-						.path("/guest/update/{id}")
-						.uri("http://localhost:8081")
+						.path("/guest/update")
+						.uri("lb://guest-service/")
 						)
 				.route(p->p
 						.path("/guest/delete/{id}")
-						.uri("http://localhost:8081")
+						.uri("lb://guest-service/")
 						)
+				.route(p->p
+						.path("/guest/getByEmail/{emailId}")
+						.uri("lb://guest-service/")
+				)
 				.build();		
+	}
+
+	@Bean
+	public RouteLocator routeLocatorRoom(RouteLocatorBuilder routeLocatorBuilder) {
+		return routeLocatorBuilder.routes()
+				.route(p->p
+						.path("/room/get")
+						.uri("lb://room-service/")
+				)
+				.route(p->p
+						.path("/room/add")
+						.uri("lb://room-service/")
+				)
+				.route(p->p
+						.path("/room/get/{roomId}")
+						.uri("lb://room-service/")
+				)
+				.route(p->p
+						.path("/room/update")
+						.uri("lb://room-service/")
+				)
+				.route(p->p
+						.path("/room/delete/{roomId}")
+						.uri("lb://room-service/")
+				)
+				.route(p->p
+						.path("/room/getbystatus/{status}")
+						.uri("lb://room-service/")
+				)
+				.build();
 	}
 
 }
