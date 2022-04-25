@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.ohms.model.Room;
 import com.ohms.repository.RoomRepository;
 
+/**
+ * This Class contains the business logics for the Room service.
+ *
+ */
 @Service
 public class RoomService {
 	
@@ -19,7 +23,7 @@ public class RoomService {
 		roomRepository.save(room);
 	}
 	
-	public List<Room> getAllRoom(){
+	public List<Room> getAllRooms(){
 		return roomRepository.findAll();
 	}
 	
@@ -27,7 +31,7 @@ public class RoomService {
 		return roomRepository.findById(roomId);
 	}
 	
-	public void updateRoom(int roomId, Room room) {
+	public void updateRoom(Room room) {
 		roomRepository.save(room);
 	}
 	
@@ -35,7 +39,7 @@ public class RoomService {
 		roomRepository.deleteById(roomId);
 	}
 	
-	public List<Room> getRoomByStatus(boolean status){
+	public List<Room> getRoomsByStatus(boolean status){
 		return roomRepository.findByStatus(status);
 	}
 }
