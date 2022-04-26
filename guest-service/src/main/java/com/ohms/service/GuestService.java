@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.ohms.model.Guest;
 import com.ohms.repository.GuestRepository;
@@ -42,5 +43,10 @@ public class GuestService {
 
 	public void deleteGuest(int guestId) {
 		guestRepository.deleteById(guestId);
+	}
+	
+	public String getEmailID(int guestId) {
+		Guest guest = guestRepository.findById(guestId).get();	
+		return guest.getGuestEmailId();
 	}
 }

@@ -70,5 +70,10 @@ public class Controller {
 		this.guestService.deleteGuest(id);
 		return "Guest deleted with guestId"+id;
 	}
+	
+	@GetMapping("/getemailid/{guestId}")
+	public String getEmailID(@PathVariable int guestId) {
+		return guestService.getEmailID(guestId);
+	}
 
 }

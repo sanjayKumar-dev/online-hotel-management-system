@@ -21,7 +21,7 @@ public class Booking {
 	private int bookingId;
 	private String roomId;
 	private int guestId;
-	private Date chekInDate;
+	private Date checkInDate;
 	private Date checkOutDate;
 	private boolean checkInStatus;
 	private boolean chekOutStatus;
