@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApiGatewayConfiguration {
 	@Bean
-	public RouteLocator routeLocatorInvenory(RouteLocatorBuilder routeLocatorBuilder) {
+	public RouteLocator routeLocatorGuest(RouteLocatorBuilder routeLocatorBuilder) {
 		return routeLocatorBuilder.routes()
 				.route(p->p
 						.path("/guest/get")
@@ -63,6 +63,32 @@ public class ApiGatewayConfiguration {
 				.route(p->p
 						.path("/room/getbystatus/{status}")
 						.uri("lb://room-service/")
+				)
+				.build();
+	}
+
+	@Bean
+	public RouteLocator routeLocatorInventory(RouteLocatorBuilder routeLocatorBuilder) {
+		return routeLocatorBuilder.routes()
+				.route(p->p
+						.path("/inventory/get")
+						.uri("lb://inventory-service/")
+				)
+				.route(p->p
+						.path("/inventory/add")
+						.uri("lb://inventory-service/")
+				)
+				.route(p->p
+						.path("/inventory/get/{productId}")
+						.uri("lb://inventory-service/")
+				)
+				.route(p->p
+						.path("/inventory/update/{id}")
+						.uri("lb://inventory-service/")
+				)
+				.route(p->p
+						.path("/inventory/delete/{productId}")
+						.uri("lb://inventory-service/")
 				)
 				.build();
 	}

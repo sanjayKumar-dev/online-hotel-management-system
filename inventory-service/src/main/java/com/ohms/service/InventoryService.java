@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 import com.ohms.model.Product;
 import com.ohms.repository.InventoryRepository;
 
+/**
+ * This Class contains the business logics for the Inventory service.
+ *
+ */
+
 @Service
 public class InventoryService {
 	
