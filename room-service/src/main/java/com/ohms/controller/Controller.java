@@ -68,5 +68,11 @@ public class Controller {
 	public List<Room> getRoomsByStatus(@PathVariable boolean status){
 		return roomService.getRoomsByStatus(status);
 	}
+	
+	@GetMapping("/getroomprice/{roomId}")
+	@Operation(summary = "Return the price for respective Id")
+	public double getRoomPrice(@PathVariable String roomId) {
+		return roomService.getRoomPrice(roomId);
+	}
 
 }

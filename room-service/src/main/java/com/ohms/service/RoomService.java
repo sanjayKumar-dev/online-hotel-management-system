@@ -42,4 +42,17 @@ public class RoomService {
 	public List<Room> getRoomsByStatus(boolean status){
 		return roomRepository.findByStatus(status);
 	}
+	
+	//This function takes roomId as input and return the room price for requested roomId
+	public double getRoomPrice(String roomId) {
+		//for storing the room
+		Room room = null; 
+		
+		//findById return Optional<Room> 
+		Optional<Room> roomCheck = roomRepository.findById(roomId); 
+		if(roomCheck != null) {
+			room = (Room) roomCheck.get();
+		}
+		return room.getPrice();
+	}
 }
