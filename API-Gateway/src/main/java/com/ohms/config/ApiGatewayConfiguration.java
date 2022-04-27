@@ -68,6 +68,36 @@ public class ApiGatewayConfiguration {
 	}
 
 	@Bean
+	public RouteLocator routeLocatorBooking(RouteLocatorBuilder routeLocatorBuilder) {
+		return routeLocatorBuilder.routes()
+				.route(p->p
+						.path("/booking/get")
+						.uri("lb://booking-service/")
+				)
+				.route(p->p
+						.path("/booking/add")
+						.uri("lb://booking-service/")
+				)
+				.route(p->p
+						.path("/booking/payment/{bookingId}")
+						.uri("lb://booking-service/")
+				)
+				.route(p->p
+						.path("/booking/cancel/{bookingId}")
+						.uri("lb://booking-service/")
+				)
+				.route(p->p
+						.path("/booking/get/{bookingId}")
+						.uri("lb://booking-service/")
+				)
+				.route(p->p
+						.path("/booking/getbycheckindate/{checkInDate}")
+						.uri("lb://booking-service/")
+				)
+				.build();
+	}
+
+	@Bean
 	public RouteLocator routeLocatorInventory(RouteLocatorBuilder routeLocatorBuilder) {
 		return routeLocatorBuilder.routes()
 				.route(p->p

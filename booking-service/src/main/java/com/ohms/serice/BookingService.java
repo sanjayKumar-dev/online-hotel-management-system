@@ -1,9 +1,7 @@
 package com.ohms.serice;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,11 @@ public class BookingService {
 	@Autowired
 	private EmailNotification emailNotification;
 	
+	/*
+	 * This Method takes Booking object as input and get room price from 
+	 * room-service and calculate the total price.
+	 */
+	
 	public double addBookingDetail(Booking booking) {		
 		String _uri = "http://localhost:8082/room/getroomprice/"+booking.getRoomId();
 		double roomPrice = webClientBuilder.build().get()
@@ -46,18 +49,40 @@ public class BookingService {
 		return booking.getTotalPrice();
 	}
 	
+	//Return the list of Booking 
+	
 	public List<Booking> getAllBookingDetails(){
 		return bookingRepository.findAll();
 	}
+	
+	//Update the booking details
 	
 	public void updateBookingDetail(Booking booking) {
 		bookingRepository.save(booking);
 	}
 	
-	public void deleteRoom(int bookingId) {
+	//Delete the Booking Detail
+	
+	public void deleteBooking(int bookingId) {
 		bookingRepository.deleteById(bookingId);
 	}
 	
+	//Return booking detail for requested bookingID
+	
+	public Booking getBookingById(int bookingId) {
+		return bookingRepository.findById(bookingId).get();
+	}
+	
+	//Return List of booking detail for particular checkInDate
+	public List<Booking> getBookingsByCheckInDate(Date checkInDate){
+		return bookingRepository.findByCheckInDate(checkInDate);
+	}
+	
+	/*
+	 * This method use for updating the payment details.
+	 * Its takes bookingId and payment detail as Input
+	 * After updating it will call bookingConfirmation for email notification.
+	 */	
 	public void addPaymentDetail(int bookingId,Payment payment) {
 		Booking booking = bookingRepository.findById(bookingId).get();
 		booking.setPaymentStatus(payment.isPaymentStatus());
@@ -71,7 +96,10 @@ public class BookingService {
 		finalBookingConfirmation(booking.getGuestId(), booking);
 		updateBookingDetail(booking);		
 	}
-	
+
+	/*
+	 * This funtion used for sending final confirmation to Guest email.
+	*/
 	public void finalBookingConfirmation(int guestID, Booking booking) {
 		String _uri = "http://localhost:8081/guest/getemailid/"+guestID;
 		String guestEmail = webClientBuilder.build().get()
@@ -84,6 +112,16 @@ public class BookingService {
 				+". Your payment is done by mode : "+ booking.getPaymentMode()+".";
 		emailNotification.sendEmail(guestEmail, subject, body);
 		
+	}
+	
+	
+	
+	//Set the booking status to Booking Cancelled
+	public String cancleBookink(int bookingId) {
+		Booking booking = bookingRepository.findById(bookingId).get();
+		booking.setBookingStatus("Booking Cancelled");
+		bookingRepository.save(booking);
+		return "Booking Cancelled";
 	}
 	
 	public Booking getBookingDetailByRoomIdAndCheckInDate(String roomId, Date checkInDate) {

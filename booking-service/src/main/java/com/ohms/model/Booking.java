@@ -10,6 +10,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entity class to store the data and fetch the data from database
+ *
+ */
 @Document("Booking")
 @Getter
 @Setter
