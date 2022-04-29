@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ohms.model.Guest;
+import com.ohms.model.GuestResponse;
 import com.ohms.service.GuestService;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 
 
@@ -34,9 +35,24 @@ public class Controller {
 	
 	@PostMapping("/add")
 	@Operation(summary = "To add new Guest into Guest Database")
-	public String addGuest(@RequestBody Guest guest) {
-		guestService.addGuest(guest);
-		return "Guset added with Guest Id : " + guest.getGuestId();
+	public ResponseEntity<?> addGuest(@RequestBody Guest guest) {
+		
+		//Check if guest detail is already existed by id
+		
+		if(guestService.isExistedById(guest.getGuestId())) {
+			Guest guestVar = guestService.getGuestById(guest.getGuestId()).get();
+			return ResponseEntity.ok(new GuestResponse("Guest Already Exist", guestVar.getGuestId(), guestVar.getGuestEmailId()));
+		}
+		
+		// To check if guest detail is already existed by emialId
+		
+		else if(guestService.isExistedByEmailId(guest.getGuestEmailId())) {
+			Guest guestVar = guestService.getGuestByEmailId(guest.getGuestEmailId());
+			return ResponseEntity.ok(new GuestResponse("Guest Already Exist", guestVar.getGuestId(), guestVar.getGuestEmailId()));
+		}else {
+			guestService.addGuest(guest);
+			return ResponseEntity.ok(new GuestResponse("Guest Detail Add successfully", guest.getGuestId(), guest.getGuestEmailId()));
+		}
 	}
 	
 	@GetMapping("/get")

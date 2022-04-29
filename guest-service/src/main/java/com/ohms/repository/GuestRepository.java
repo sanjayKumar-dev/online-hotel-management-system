@@ -14,6 +14,7 @@ import com.ohms.model.Guest;
 @Repository
 public interface GuestRepository extends MongoRepository<Guest, Integer> {
 
-	Guest findByGuestEmailId(String guestEmailId); 
-
+	Guest findByGuestEmailId(String guestEmailId);
+	boolean existsByGuestId(int guestId);
+	boolean existsByGuestEmailId(String guestEmailId);
 }

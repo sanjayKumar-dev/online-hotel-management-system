@@ -9,6 +9,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ohms.model.BookedRooms;
 import com.ohms.model.Booking;
 import com.ohms.model.Payment;
 import com.ohms.notification.EmailNotification;
@@ -26,12 +27,25 @@ public class BookingService {
 	@Autowired
 	private EmailNotification emailNotification;
 	
+	@Autowired
+	private BookedRoomService bookedRoomService;
+	
 	/*
 	 * This Method takes Booking object as input and get room price from 
 	 * room-service and calculate the total price.
 	 */
 	
-	public double addBookingDetail(Booking booking) {		
+	public double addBookingDetail(Booking booking) {	
+		
+		if(bookedRoomService.exitsByCheckInDate(booking.getCheckInDate())) {
+			BookedRooms bookedRooms = bookedRoomService.findByDate(booking.getCheckInDate());
+			List<String> listOfRooms = bookedRooms.getRoomIds();
+			if(listOfRooms.contains(booking.getRoomId())) {
+				return 0.0;
+			}
+		}
+		
+		
 		String _uri = "http://localhost:8082/room/getroomprice/"+booking.getRoomId();
 		double roomPrice = webClientBuilder.build().get()
 				.uri(_uri)
@@ -74,6 +88,7 @@ public class BookingService {
 	}
 	
 	//Return List of booking detail for particular checkInDate
+	
 	public List<Booking> getBookingsByCheckInDate(Date checkInDate){
 		return bookingRepository.findByCheckInDate(checkInDate);
 	}
@@ -83,6 +98,7 @@ public class BookingService {
 	 * Its takes bookingId and payment detail as Input
 	 * After updating it will call bookingConfirmation for email notification.
 	 */	
+	
 	public void addPaymentDetail(int bookingId,Payment payment) {
 		Booking booking = bookingRepository.findById(bookingId).get();
 		booking.setPaymentStatus(payment.isPaymentStatus());
@@ -98,8 +114,9 @@ public class BookingService {
 	}
 
 	/*
-	 * This funtion used for sending final confirmation to Guest email.
+	 * This function used for sending final confirmation to Guest email.
 	*/
+	
 	public void finalBookingConfirmation(int guestID, Booking booking) {
 		String _uri = "http://localhost:8081/guest/getemailid/"+guestID;
 		String guestEmail = webClientBuilder.build().get()
@@ -117,6 +134,7 @@ public class BookingService {
 	
 	
 	//Set the booking status to Booking Cancelled
+	
 	public String cancleBookink(int bookingId) {
 		Booking booking = bookingRepository.findById(bookingId).get();
 		booking.setBookingStatus("Booking Cancelled");
