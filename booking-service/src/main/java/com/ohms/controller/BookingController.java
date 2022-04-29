@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class BookingController {
 	
 	@PostMapping("/add")
 	@Operation(summary = "To add new Booking Detail")
-	public double addBookingDetail(@RequestBody Booking booking) {
+	public ResponseEntity<?> addBookingDetail(@RequestBody Booking booking) {
 		return bookingService.addBookingDetail(booking);
 	}
 	

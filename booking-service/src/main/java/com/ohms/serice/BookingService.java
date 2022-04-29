@@ -6,12 +6,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ohms.model.BookedRooms;
 import com.ohms.model.Booking;
+import com.ohms.model.BookingResponse;
 import com.ohms.model.Payment;
+import com.ohms.model.RoomDTO;
 import com.ohms.notification.EmailNotification;
 import com.ohms.repository.BookingRepository;
 
@@ -35,13 +38,13 @@ public class BookingService {
 	 * room-service and calculate the total price.
 	 */
 	
-	public double addBookingDetail(Booking booking) {	
+	public ResponseEntity<?> addBookingDetail(Booking booking) {	
 		
 		if(bookedRoomService.exitsByCheckInDate(booking.getCheckInDate())) {
 			BookedRooms bookedRooms = bookedRoomService.findByDate(booking.getCheckInDate());
 			List<String> listOfRooms = bookedRooms.getRoomIds();
 			if(listOfRooms.contains(booking.getRoomId())) {
-				return 0.0;
+				return ResponseEntity.badRequest().body(new BookingResponse("Already room booked for particular date", 0.0));
 			}
 		}
 		
@@ -60,7 +63,7 @@ public class BookingService {
 		booking.setTotalPrice((double)(roomPrice*diff));
 		
 		bookingRepository.save(booking);
-		return booking.getTotalPrice();
+		return ResponseEntity.ok(new BookingResponse("Booking detail added", booking.getTotalPrice()));
 	}
 	
 	//Return the list of Booking 
@@ -105,10 +108,13 @@ public class BookingService {
 		booking.setPaymentMode(payment.getPaymentMode());
 		if(booking.isPaymentStatus() == true) {
 			booking.setBookingStatus("Booked");
+			RoomDTO roomDTO = new RoomDTO(booking.getBookingId(), booking.getCheckInDate(), booking.getRoomId());
+			bookedRoomService.addRoomToBooked(roomDTO);
 		}
 //		if(booking.getBookingStatus()=="Booked") {
 //			finalBookingConfirmation(booking.getGuestId(), booking);
 //		}
+		
 		finalBookingConfirmation(booking.getGuestId(), booking);
 		updateBookingDetail(booking);		
 	}
