@@ -22,7 +22,7 @@ import com.ohms.service.DepartmentService;
  */
 @RestController
 @RequestMapping("/department")
-public class Controller {
+public class DepartmentController {
 	
 	@Autowired
 	private DepartmentService departmentService;

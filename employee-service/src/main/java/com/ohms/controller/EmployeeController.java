@@ -19,7 +19,7 @@ import com.ohms.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employee")
-public class Controller {
+public class EmployeeController {
 	
 	@Autowired
 	private EmployeeService employeeService;
