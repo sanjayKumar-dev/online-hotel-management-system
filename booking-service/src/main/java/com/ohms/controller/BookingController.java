@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ohms.serice.BookingService;
-
 import io.swagger.v3.oas.annotations.Operation;
 
 import com.ohms.model.Booking;
 import com.ohms.model.Payment;
+import com.ohms.service.BookingService;
 
 /**
  * This is the controller class of Booking service Which is created for REST API

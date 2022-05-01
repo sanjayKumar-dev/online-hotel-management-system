@@ -1,4 +1,4 @@
-package com.ohms.serice;
+package com.ohms.service;
 
 import java.util.Date;
 import java.util.List;
@@ -110,12 +110,9 @@ public class BookingService {
 			booking.setBookingStatus("Booked");
 			RoomDTO roomDTO = new RoomDTO(booking.getBookingId(), booking.getCheckInDate(), booking.getRoomId());
 			bookedRoomService.addRoomToBooked(roomDTO);
+			finalBookingConfirmation(booking.getGuestId(), booking);
 		}
-//		if(booking.getBookingStatus()=="Booked") {
-//			finalBookingConfirmation(booking.getGuestId(), booking);
-//		}
 		
-		finalBookingConfirmation(booking.getGuestId(), booking);
 		updateBookingDetail(booking);		
 	}
 

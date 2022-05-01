@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ohms.model.BookedRooms;
 import com.ohms.model.RoomDTO;
-import com.ohms.serice.BookedRoomService;
+import com.ohms.service.BookedRoomService;
 
 @RestController
 @RequestMapping("/bookedrooms")
