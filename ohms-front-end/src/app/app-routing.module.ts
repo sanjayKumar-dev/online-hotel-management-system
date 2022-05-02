@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddGuestComponent } from './components/add-guest/add-guest.component';
 import { LoginComponent } from './components/login/login.component';
 import { OwnerComponent } from './components/owner/owner.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
-  { path: 'ownwe', component: OwnerComponent}
+  { 
+    path: 'owner', component: OwnerComponent,
+    children: [
+      { path: 'addguest', component: AddGuestComponent}
+    ]
+  }
+  
 ];
 
 @NgModule({

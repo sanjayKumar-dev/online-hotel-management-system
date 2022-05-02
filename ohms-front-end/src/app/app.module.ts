@@ -12,12 +12,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { OwnerComponent } from './components/owner/owner.component';
+import { OwnerSidenavComponent } from './components/owner-sidenav/owner-sidenav.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { HeaderComponent } from './components/header/header.component';
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+import { AddGuestComponent } from './components/add-guest/add-guest.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    OwnerComponent
+    OwnerComponent,
+    OwnerSidenavComponent,
+    HeaderComponent,
+    AddGuestComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +38,10 @@ import { OwnerComponent } from './components/owner/owner.component';
     FormsModule,
     MatIconModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
