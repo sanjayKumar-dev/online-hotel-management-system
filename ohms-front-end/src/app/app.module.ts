@@ -18,6 +18,8 @@ import { HeaderComponent } from './components/header/header.component';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import { AddGuestComponent } from './components/add-guest/add-guest.component';
+import { BookingComponent } from './components/booking/booking.component';
+import { ResponseMessageComponent } from './components/response-message/response-message.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AddGuestComponent } from './components/add-guest/add-guest.component';
     OwnerComponent,
     OwnerSidenavComponent,
     HeaderComponent,
-    AddGuestComponent
+    AddGuestComponent,
+    BookingComponent,
+    ResponseMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ import { AddGuestComponent } from './components/add-guest/add-guest.component';
     HttpClientModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

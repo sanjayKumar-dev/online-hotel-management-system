@@ -13,8 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GuestResponse {
-	
+public class GuestResponse {	
 	private String message;
 	private int guestId;
 	private String guestEmailId;

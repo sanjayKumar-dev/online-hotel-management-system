@@ -1,32 +1,33 @@
+<!-- <p>booking works!</p> -->
 <!-- <p>add-guest works!</p> -->
 <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2"><p class="heading">Add Guest</p></div>
+    <div class="d-flex page__box p-3 mt-2">Book Room</div>
     <div class="page__content shadow p-3 position-relative">
       <div class="main">
-        <form #guestForm="ngForm" (ngSubmit)="addGuestDetail()">
+        <form>
             <div class="form-group" >
                 <label class="text-class" for="guestId">Guest Id</label>
-                <input type="text" class="form-control" [(ngModel)]="guest.guestId" name="guestId" placeholder="Enter Guest Id" required>
+                <input type="email" class="form-control" id="guestId" aria-describedby="emailHelp" placeholder="Enter Guest Id">
             </div>
             <div class="form-group">
                 <label class="text-class" for="guestName">Guest Name</label>
-                <input type="text" class="form-control" [(ngModel)]="guest.guestName" name="guestName" placeholder="Enter Guest Name">
+                <input type="email" class="form-control" id="guestName" aria-describedby="emailHelp" placeholder="Enter Guest Name">
             </div>
             <div class="form-group">
                 <label class="text-class" for="guestAge">Guest Age</label>
-                <input type="text" class="form-control" [(ngModel)]="guest.guestAge" name="guestAge" placeholder="Enter Guest Age">
+                <input type="email" class="form-control" id="guestAge" aria-describedby="emailHelp" placeholder="Enter Guest Age">
             </div>
             <div class="form-group">
                 <label class="text-class" for="guestContact">Contact Number</label>
-                <input type="text" class="form-control" [(ngModel)]="guest.guestContactNumber" name="guestContact" placeholder="Enter Contact Number">
+                <input type="email" class="form-control" id="guestContact" aria-describedby="emailHelp" placeholder="Enter Contact Number">
             </div>
             <div class="form-group">
               <label class="text-class" for="guestEmail">Email address</label>
-              <input type="text" class="form-control" [(ngModel)]="guest.guestEmailId" name="guestEmail" placeholder="Enter email">
+              <input type="email" class="form-control" id="guestEmail" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
               <label class="text-class" for="guestAddress">Address</label>
-              <input type="text" class="form-control" [(ngModel)]="guest.guestAddress" name="guestAddress" placeholder="Enter Address">
+              <input type="password" class="form-control" id="guestAddress" placeholder="Enter Address">
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>

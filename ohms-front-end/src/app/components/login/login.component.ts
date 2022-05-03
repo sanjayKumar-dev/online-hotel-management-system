@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   authenticateUser(date: any){
-    // console.log(this.logInUserData.username);
-    // console.log(this.logInUserData.password);
     console.log(this.logInUserData);
     this.loginService.login(this.logInUserData).subscribe(
       (result)=>{
