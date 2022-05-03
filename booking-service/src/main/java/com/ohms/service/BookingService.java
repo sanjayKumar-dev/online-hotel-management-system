@@ -33,6 +33,9 @@ public class BookingService {
 	@Autowired
 	private BookedRoomService bookedRoomService;
 	
+	@Autowired
+	private SequenceService sequenceService;
+	
 	/*
 	 * This Method takes Booking object as input and get room price from 
 	 * room-service and calculate the total price.
@@ -44,10 +47,12 @@ public class BookingService {
 			BookedRooms bookedRooms = bookedRoomService.findByDate(booking.getCheckInDate());
 			List<String> listOfRooms = bookedRooms.getRoomIds();
 			if(listOfRooms.contains(booking.getRoomId())) {
-				return ResponseEntity.badRequest().body(new BookingResponse("Already room booked for particular date", 0.0));
+				return ResponseEntity.badRequest().body(new BookingResponse("Already room booked for particular date", 0.0, booking.getBookingId()));
 			}
 		}
 		
+		int getId = sequenceService.getNextSequence("booking");
+		booking.setBookingId(getId);
 		
 		String _uri = "http://localhost:8082/room/getroomprice/"+booking.getRoomId();
 		double roomPrice = webClientBuilder.build().get()
@@ -63,7 +68,7 @@ public class BookingService {
 		booking.setTotalPrice((double)(roomPrice*diff));
 		
 		bookingRepository.save(booking);
-		return ResponseEntity.ok(new BookingResponse("Booking detail added", booking.getTotalPrice()));
+		return ResponseEntity.ok(new BookingResponse("Booking detail added", booking.getTotalPrice(), booking.getBookingId()));
 	}
 	
 	//Return the list of Booking 

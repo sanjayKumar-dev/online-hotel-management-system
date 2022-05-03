@@ -13,4 +13,5 @@ public class BookingResponse {
 
 	private String message;
 	private double price;
+	private int bookingId;
 }
