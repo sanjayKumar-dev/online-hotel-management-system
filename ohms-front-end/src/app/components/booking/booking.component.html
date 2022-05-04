@@ -1,37 +1,143 @@
-<!-- <p>booking works!</p> -->
-<!-- <p>add-guest works!</p> -->
 <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2">Book Room</div>
-    <div class="page__content shadow p-3 position-relative">
-      <div class="main">
-        <form>
-            <div class="form-group" >
-                <label class="text-class" for="guestId">Guest Id</label>
-                <input type="email" class="form-control" id="guestId" aria-describedby="emailHelp" placeholder="Enter Guest Id">
+    <div class="d-flex page__box p-3 mt-2"><p class="heading">Book Room</p></div>
+      <div class="body">
+
+
+        <!-- Add check-in, check-out and room detail -->
+        <form class="form" [hidden]="bookingToggle">
+          <h1 class="text-center">Booking Detail</h1>
+          <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
+            <div class="progress-step" data-title="Guest"></div>
+            <div class="progress-step" data-title="Payment"></div>
+            <div class="progress-step" data-title="Status"></div>
+          </div>
+
+          <div class="form-step">
+            <div class="input-group">
+              <label  for="chekInDate">Check In Date</label>
+              <input type="date" [(ngModel)]="bookingDetail.checkInDate" name="checkInDate" />
             </div>
-            <div class="form-group">
-                <label class="text-class" for="guestName">Guest Name</label>
-                <input type="email" class="form-control" id="guestName" aria-describedby="emailHelp" placeholder="Enter Guest Name">
+
+            <div class="input-group"> 
+              <label for="checkOutDate">Check Out Date</label>
+              <input type="date" name="checkOutDate" [(ngModel)]="bookingDetail.checkOutDate" />
             </div>
-            <div class="form-group">
-                <label class="text-class" for="guestAge">Guest Age</label>
-                <input type="email" class="form-control" id="guestAge" aria-describedby="emailHelp" placeholder="Enter Guest Age">
+
+            <div class="input-group">
+              <label for="roomId">Room Number</label>
+              <input type="text" name="roomId" [(ngModel)]="bookingDetail.roomId" placeholder="Enter Room Number" />
             </div>
-            <div class="form-group">
-                <label class="text-class" for="guestContact">Contact Number</label>
-                <input type="email" class="form-control" id="guestContact" aria-describedby="emailHelp" placeholder="Enter Contact Number">
+
+            <div class="">
+              <a class="btn btn-next width-50 ml-auto" (click)="bookingNext()">Next</a>
             </div>
-            <div class="form-group">
-              <label class="text-class" for="guestEmail">Email address</label>
-              <input type="email" class="form-control" id="guestEmail" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+        </form>
+
+
+        <!-- Add Guest detail -->
+        <form class="form" action="" [hidden]="guestToggle">
+          <h1 class="text-center">Guest Detail</h1>
+          <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
+            <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step" data-title="Payment"></div>
+            <div class="progress-step" data-title="Status"></div>
+          </div>
+
+          <div class="form-step">
+            <div class="input-group">
+              <label for="">Name</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Name"/>
             </div>
-            <div class="form-group">
-              <label class="text-class" for="guestAddress">Address</label>
-              <input type="password" class="form-control" id="guestAddress" placeholder="Enter Address">
+
+            <div class="input-group">
+              <label for="">Age</label>
+              <input type="number" name="" id="" placeholder="Enter Guest Age"/>
             </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+
+            <div class="input-group">
+              <label for="">Contact Number</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Contact Number"/>
+            </div>
+
+            <div class="input-group">
+              <label for="">Email Id</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Email Id" />
+            </div>
+
+            <div class="input-group">
+              <label for="">Address</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Address" />
+            </div>
+
+            <div class="btns-group">
+              <a class="btn btn-prev" (click)="guestPrev()">Previous</a>
+              <a class="btn btn-next width-50 ml-auto" (click)="guestNext()">Next</a>
+            </div>
+          </div>
+        </form>
+
+
+        <!-- Add Payment detail -->
+        <form class="form" action="" [hidden]="paymentToggle">
+          <h1 class="text-center">Payment</h1>
+          <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
+            <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step progress-step-active" data-title="Payment"></div>
+            <div class="progress-step" data-title="Status"></div>
+          </div>
+
+          <div class="form-step">
+            <div class="input-group">
+              <label for="">Name</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Name"/>
+            </div>
+
+            <div class="input-group">
+              <label for="">Age</label>
+              <input type="number" name="" id="" placeholder="Enter Guest Age"/>
+            </div>
+
+            <div class="input-group">
+              <label for="">Contact Number</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Contact Number"/>
+            </div>
+
+            <div class="input-group">
+              <label for="">Email Id</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Email Id" />
+            </div>
+
+            <div class="input-group">
+              <label for="">Address</label>
+              <input type="text" name="" id="" placeholder="Enter Guest Address" />
+            </div>
+
+            <div class="btns-group">
+              <a class="btn btn-prev" (click)="paymentPrev()">Previous</a>
+              <a class="btn btn-next width-50 ml-auto" (click)="paymentNext()">Submit</a>
+            </div>
+          </div>
+        </form>
+
+        <!-- Status -->
+        <form class="form" action="" [hidden]="statusToggle">
+          <h1 class="text-center">Payment</h1>
+          <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
+            <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step progress-step-active" data-title="Payment"></div>
+            <div class="progress-step progress-step-active" data-title="Status"></div>
+          </div>
+          {{message}}
+        </form>
       </div>
+      
     </div>
-</div>

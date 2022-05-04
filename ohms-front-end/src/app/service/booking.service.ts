@@ -21,4 +21,11 @@ export class BookingService {
 
   private url: string = 'http://localhost:8083/booking';
   constructor() { }
+
+  updateBacicDetail(data: any){
+    this.bookingDetail.roomId = data.roomId;
+    this.bookingDetail.checkInDate = data.checkInDate;
+    this.bookingDetail.checkOutDate = data.checkOutDate;
+    console.log(this.bookingDetail);
+  }
 }

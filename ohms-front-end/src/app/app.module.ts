@@ -20,6 +20,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { AddGuestComponent } from './components/add-guest/add-guest.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { ResponseMessageComponent } from './components/response-message/response-message.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ResponseMessageComponent } from './components/response-message/response
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
