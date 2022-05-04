@@ -4,10 +4,6 @@
     <div class="page__content shadow p-3 position-relative">
       <div class="main">
         <form #guestForm="ngForm" (ngSubmit)="addGuestDetail()">
-            <div class="form-group" >
-                <label class="text-class" for="guestId">Guest Id</label>
-                <input type="text" class="form-control" [(ngModel)]="guest.guestId" name="guestId" placeholder="Enter Guest Id" required>
-            </div>
             <div class="form-group">
                 <label class="text-class" for="guestName">Guest Name</label>
                 <input type="text" class="form-control" [(ngModel)]="guest.guestName" name="guestName" placeholder="Enter Guest Name">

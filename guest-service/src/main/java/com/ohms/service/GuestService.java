@@ -19,9 +19,14 @@ public class GuestService {
 	
 	@Autowired
 	private GuestRepository guestRepository;
+	
+	@Autowired
+	private SequenceService sequenceService;
 
 	// Add new Guest to database
 	public void addGuest(Guest guest) {
+		int getId = sequenceService.getNextSequence("guest");
+		guest.setGuestId(getId);
 		guestRepository.save(guest);
 	}
 	

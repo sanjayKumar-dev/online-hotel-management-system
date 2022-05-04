@@ -37,18 +37,8 @@ public class Controller {
 	
 	@PostMapping("/add")
 	@Operation(summary = "To add new Guest into Guest Database")
-	public ResponseEntity<?> addGuest(@RequestBody Guest guest) {
-		
-		//Check if guest detail is already existed by id
-		
-		if(guestService.isExistedById(guest.getGuestId())) {
-			Guest guestVar = guestService.getGuestById(guest.getGuestId()).get();
-			return ResponseEntity.ok(new GuestResponse("Guest Already Exist", guestVar.getGuestId(), guestVar.getGuestEmailId()));
-		}
-		
-		// To check if guest detail is already existed by emialId
-		
-		else if(guestService.isExistedByEmailId(guest.getGuestEmailId())) {
+	public ResponseEntity<?> addGuest(@RequestBody Guest guest) {		
+		if(guestService.isExistedByEmailId(guest.getGuestEmailId())) {
 			Guest guestVar = guestService.getGuestByEmailId(guest.getGuestEmailId());
 			return ResponseEntity.ok(new GuestResponse("Guest Already Exist", guestVar.getGuestId(), guestVar.getGuestEmailId()));
 		}else {
