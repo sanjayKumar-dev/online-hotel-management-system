@@ -6,12 +6,16 @@ import org.springframework.stereotype.Service;
 import com.ohms.model.Sequence;
 import com.ohms.repository.SequenceRepository;
 
+/**
+ *This  class is track of sequence for auto generated id
+ */
 @Service
 public class SequenceService {
 	
 	@Autowired
 	private SequenceRepository sequenceRepository;
 	
+	//Return the next sequence
 	public int getNextSequence(String seqenceName) {
 		Sequence sequence = sequenceRepository.findByName(seqenceName);
 		if(sequence == null) {

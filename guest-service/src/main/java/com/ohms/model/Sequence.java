@@ -8,6 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entity class to store the data for auto generated id
+ *
+ */
 @Getter
 @Setter
 @AllArgsConstructor

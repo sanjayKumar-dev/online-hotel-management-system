@@ -21,6 +21,14 @@ import { AddGuestComponent } from './components/add-guest/add-guest.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { ResponseMessageComponent } from './components/response-message/response-message.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import { GuestCurdComponent } from './components/guest-curd/guest-curd.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+import { GuestDialogComponent } from './components/guest-dialog/guest-dialog.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -31,7 +39,9 @@ import {MatStepperModule} from '@angular/material/stepper';
     HeaderComponent,
     AddGuestComponent,
     BookingComponent,
-    ResponseMessageComponent
+    ResponseMessageComponent,
+    GuestCurdComponent,
+    GuestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +58,14 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatListModule,
     MatMenuModule,
     MatFormFieldModule,
-    MatStepperModule
+    MatStepperModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
