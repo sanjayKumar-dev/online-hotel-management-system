@@ -50,28 +50,28 @@
 
           <div class="form-step">
             <div class="input-group">
-              <label for="">Name</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Name"/>
+              <label for="guestName">Name</label>
+              <input type="text" name="guestName" [(ngModel)]="guest.guestName" placeholder="Enter Guest Name"/>
             </div>
 
             <div class="input-group">
-              <label for="">Age</label>
-              <input type="number" name="" id="" placeholder="Enter Guest Age"/>
+              <label for="guestAge">Age</label>
+              <input type="number" name="guestAge" [(ngModel)]="guest.guestAge" id="" placeholder="Enter Guest Age"/>
             </div>
 
             <div class="input-group">
-              <label for="">Contact Number</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Contact Number"/>
+              <label for="guestContactNumber">Contact Number</label>
+              <input type="text" name="guestContactNumber"  [(ngModel)]="guest.guestContactNumber" id="" placeholder="Enter Guest Contact Number"/>
             </div>
 
             <div class="input-group">
-              <label for="">Email Id</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Email Id" />
+              <label for="guestEmailId">Email Id</label>
+              <input type="text" name="guestEmailId" [(ngModel)]="guest.guestEmailId" id="" placeholder="Enter Guest Email Id" />
             </div>
 
             <div class="input-group">
-              <label for="">Address</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Address" />
+              <label for="guestAddress">Address</label>
+              <input type="text" name="guestAddress" [(ngModel)]="guest.guestAddress" id="" placeholder="Enter Guest Address" />
             </div>
 
             <div class="btns-group">
@@ -94,29 +94,23 @@
           </div>
 
           <div class="form-step">
+
             <div class="input-group">
-              <label for="">Name</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Name"/>
+              <label for="">Booking Id : {{bookingRes.bookingId}} <br> Total Price {{bookingRes.price}}</label>
+              <!-- <label for="">Total Price {{price}}</label> -->
             </div>
 
             <div class="input-group">
-              <label for="">Age</label>
-              <input type="number" name="" id="" placeholder="Enter Guest Age"/>
+              <label for="paymentMode">Payment Mode</label>
+              <input type="text" name="paymentMode" [(ngModel)]="paymentDetail.paymentMode" placeholder="Enter Mode Of Payment"/>
             </div>
 
             <div class="input-group">
-              <label for="">Contact Number</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Contact Number"/>
-            </div>
-
-            <div class="input-group">
-              <label for="">Email Id</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Email Id" />
-            </div>
-
-            <div class="input-group">
-              <label for="">Address</label>
-              <input type="text" name="" id="" placeholder="Enter Guest Address" />
+              <label for="paymentStatus">Payment Status</label>
+              <select name="paymentStatus" [(ngModel)]="paymentDetail.paymentStatus" >
+                <option value="true">Payment Confirm</option>
+                <option value="false">Payment Not Done</option>
+              </select>
             </div>
 
             <div class="btns-group">
@@ -128,7 +122,7 @@
 
         <!-- Status -->
         <form class="form" action="" [hidden]="statusToggle">
-          <h1 class="text-center">Payment</h1>
+          <h1 class="text-center">Booking Status</h1>
           <div class="progressbar">
             <div class="progress" id="progress"></div>
             <div class="progress-step progress-step-active" data-title="Booking"></div>

@@ -44,10 +44,13 @@ public class BookingController {
 		return bookingService.getAllBookingDetails();
 	}
 	
-	@PostMapping("/payment/{bookingId}")
+	@PostMapping("/payment")
 	@Operation(summary = "Update payment details")
-	public String addPaymentDetails(@PathVariable int bookingId, @RequestBody Payment payment) {
-		bookingService.addPaymentDetail(bookingId, payment);
+	public String addPaymentDetails(@RequestBody Payment payment) {
+		System.out.println(payment.getBookingID());
+		System.out.println(payment.getPaymentMode());
+		System.out.println(payment.isPaymentStatus());
+		bookingService.addPaymentDetail(payment.getBookingID(), payment);
 		return "Updated the payment detail";
 	}
 	

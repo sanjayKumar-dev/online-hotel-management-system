@@ -60,6 +60,13 @@ label {
     border: 1px solid #ccc;
     border-radius: 0.25rem;
   }
+  select{
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
 .form {
     width: clamp(320px, 30%, 430px);
     margin: 0 auto;

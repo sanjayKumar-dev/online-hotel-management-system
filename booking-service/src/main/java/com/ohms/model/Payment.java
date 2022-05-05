@@ -12,4 +12,5 @@ import lombok.Setter;
 public class Payment {
 	private String paymentMode;
 	private boolean paymentStatus;
+	private int bookingID;
 }
