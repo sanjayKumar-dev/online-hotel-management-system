@@ -22,8 +22,9 @@ export class BookingComponent implements OnInit {
     roomId: ''
   }
 
-  bookingToggle = false;
-  guestToggle = true;
+  
+  guestToggle = false;
+  bookingToggle = true;
   paymentToggle = true;
   statusToggle = true;
 
@@ -53,21 +54,12 @@ export class BookingComponent implements OnInit {
     paymentStatus: false,
     bookingID: 0
   }
-  message = "This is Simple message"
-  bookingNext(){
-    this.bookingService.updateBacicDetail(this.bookingDetail);
-    this.bookingToggle = true;
-    this.guestToggle = false;
-  }
+  message = "Your Booking is Confirm";
 
-  guestPrev(){
-    this.bookingToggle = false;
-    this.guestToggle = true;
-  }
 
   guestNext(){
     this.guestToggle = true;
-    this.paymentToggle = false;
+    this.bookingToggle = false;
     console.log(this.guest);
     // To Add Guest Detail
     this.bookingService.addGuest(this.guest).subscribe(
@@ -77,20 +69,32 @@ export class BookingComponent implements OnInit {
         this.bookingService.setGuestId(this.guestResponse.guestId);        
       }
     );
-
-    
-    this.bookingService.addBookingDetail().subscribe(
-      result=>{
-        this.bookingRes = result;
-        console.log(this.bookingRes);
-        this.paymentDetail.bookingID = this.bookingRes.bookingId;
-      }
-    );
     
   }
 
-  paymentPrev(){
+  bookingNext(){
+    this.bookingService.updateBacicDetail(this.bookingDetail);
+    this.bookingToggle = true;
+    this.paymentToggle = false;
+
+    this.bookingService.addBookingDetail().subscribe(
+        result=>{
+          this.bookingRes = result;
+          console.log(this.bookingRes);
+          this.paymentDetail.bookingID = this.bookingRes.bookingId;
+        }
+      );
+  }
+
+  bookingPrev(){
+    this.bookingToggle = true;
     this.guestToggle = false;
+  }
+
+  
+
+  paymentPrev(){
+    this.bookingToggle = false;
     this.paymentToggle = true;
   }
 

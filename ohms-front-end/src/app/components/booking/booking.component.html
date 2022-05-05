@@ -3,47 +3,13 @@
       <div class="body">
 
 
-        <!-- Add check-in, check-out and room detail -->
-        <form class="form" [hidden]="bookingToggle">
-          <h1 class="text-center">Booking Detail</h1>
-          <div class="progressbar">
-            <div class="progress" id="progress"></div>
-            <div class="progress-step progress-step-active" data-title="Booking"></div>
-            <div class="progress-step" data-title="Guest"></div>
-            <div class="progress-step" data-title="Payment"></div>
-            <div class="progress-step" data-title="Status"></div>
-          </div>
-
-          <div class="form-step">
-            <div class="input-group">
-              <label  for="chekInDate">Check In Date</label>
-              <input type="date" [(ngModel)]="bookingDetail.checkInDate" name="checkInDate" />
-            </div>
-
-            <div class="input-group"> 
-              <label for="checkOutDate">Check Out Date</label>
-              <input type="date" name="checkOutDate" [(ngModel)]="bookingDetail.checkOutDate" />
-            </div>
-
-            <div class="input-group">
-              <label for="roomId">Room Number</label>
-              <input type="text" name="roomId" [(ngModel)]="bookingDetail.roomId" placeholder="Enter Room Number" />
-            </div>
-
-            <div class="">
-              <a class="btn btn-next width-50 ml-auto" (click)="bookingNext()">Next</a>
-            </div>
-          </div>
-        </form>
-
-
         <!-- Add Guest detail -->
         <form class="form" action="" [hidden]="guestToggle">
           <h1 class="text-center">Guest Detail</h1>
           <div class="progressbar">
             <div class="progress" id="progress"></div>
-            <div class="progress-step progress-step-active" data-title="Booking"></div>
             <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step" data-title="Booking"></div>
             <div class="progress-step" data-title="Payment"></div>
             <div class="progress-step" data-title="Status"></div>
           </div>
@@ -74,12 +40,49 @@
               <input type="text" name="guestAddress" [(ngModel)]="guest.guestAddress" id="" placeholder="Enter Guest Address" />
             </div>
 
-            <div class="btns-group">
-              <a class="btn btn-prev" (click)="guestPrev()">Previous</a>
+            <div class="">
+              
               <a class="btn btn-next width-50 ml-auto" (click)="guestNext()">Next</a>
             </div>
           </div>
         </form>
+
+        <!-- Add check-in, check-out and room detail -->
+        <form class="form" [hidden]="bookingToggle">
+          <h1 class="text-center">Booking Detail</h1>
+          <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
+            <div class="progress-step" data-title="Payment"></div>
+            <div class="progress-step" data-title="Status"></div>
+          </div>
+
+          <div class="form-step">
+            <div class="input-group">
+              <label  for="chekInDate">Check In Date</label>
+              <input type="date" [(ngModel)]="bookingDetail.checkInDate" name="checkInDate" />
+            </div>
+
+            <div class="input-group"> 
+              <label for="checkOutDate">Check Out Date</label>
+              <input type="date" name="checkOutDate" [(ngModel)]="bookingDetail.checkOutDate" />
+            </div>
+
+            <div class="input-group">
+              <label for="roomId">Room Number</label>
+              <input type="text" name="roomId" [(ngModel)]="bookingDetail.roomId" placeholder="Enter Room Number" />
+            </div>
+
+            <div class="btns-group">
+              <a class="btn btn-prev" (click)="bookingPrev()">Previous</a>
+              <a class="btn btn-next width-50 ml-auto" (click)="bookingNext()">Next</a>
+            </div>
+          </div>
+        </form>
+
+
+        
 
 
         <!-- Add Payment detail -->
@@ -87,8 +90,8 @@
           <h1 class="text-center">Payment</h1>
           <div class="progressbar">
             <div class="progress" id="progress"></div>
-            <div class="progress-step progress-step-active" data-title="Booking"></div>
             <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
             <div class="progress-step progress-step-active" data-title="Payment"></div>
             <div class="progress-step" data-title="Status"></div>
           </div>
@@ -125,8 +128,8 @@
           <h1 class="text-center">Booking Status</h1>
           <div class="progressbar">
             <div class="progress" id="progress"></div>
-            <div class="progress-step progress-step-active" data-title="Booking"></div>
             <div class="progress-step progress-step-active" data-title="Guest"></div>
+            <div class="progress-step progress-step-active" data-title="Booking"></div>
             <div class="progress-step progress-step-active" data-title="Payment"></div>
             <div class="progress-step progress-step-active" data-title="Status"></div>
           </div>
