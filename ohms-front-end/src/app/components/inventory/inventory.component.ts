@@ -1,78 +1,82 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { GuestCurdService } from 'src/app/service/guest-curd.service';
-import { GuestDialogComponent } from '../guest-dialog/guest-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-@Component({
-  selector: 'app-guest-curd',
-  templateUrl: './guest-curd.component.html',
-  styleUrls: ['./guest-curd.component.css']
-})
-export class GuestCurdComponent implements OnInit {
+import { InventoryService } from 'src/app/service/inventory.service';
+import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 
-  //
-  displayedColumns: string[] = ['guestId', 'guestName', 'guestAge', 'guestContactNumber', 'guestEmailId', 'guestAddress', 'action'];
+@Component({
+  selector: 'app-inventory',
+  templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.css']
+})
+export class InventoryComponent implements OnInit {
+
+
+  displayedColumns: string[] = ['productId', 'productName', 'productCategory', 'quantity', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private api: GuestCurdService) { }
+  constructor(private dialog: MatDialog, private api: InventoryService) { }
 
   ngOnInit(): void {
-    this.getAllGuestDeatails();
+    this.getAllProduct();
   }
 
   // For Opening Dialog Box
   openDialog(){
-    this.dialog.open(GuestDialogComponent, {
+    this.dialog.open(ProductDialogComponent, {
       width: '30%'
     }).afterClosed().subscribe(val=>{
       if(val === 'sava'){
-        this.getAllGuestDeatails();
+        this.getAllProduct();
       }
-      this.getAllGuestDeatails();
+      this.getAllProduct();
     });
   }
 
-  getAllGuestDeatails(){
-    this.api.getGuest().subscribe({
+  getAllProduct(){
+    this.api.getProduct().subscribe({
       next: (result)=>{
         console.log(result);
+        
         this.dataSource = new MatTableDataSource(result);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: (err)=>{
-        alert("Error While Featching Guest Data!");
+        console.log(err);
+        alert("Error While Featching Inventory Data!!");
       }
     })
   }
 
-  editGuest(row: any){
-    this.dialog.open(GuestDialogComponent, {
+  editProduct(row: any){
+    this.dialog.open(ProductDialogComponent, {
       width: '30%',
       data: row
     }).afterClosed().subscribe(val=>{
       if(val === 'update'){
-        this.getAllGuestDeatails();
+        this.getAllProduct();
       }
     })
   }
 
-  deleteGuest(id: number){
-    this.api.deleteGuest(id).subscribe({
+  deleteProduct(id: number){
+    this.api.deleteProduct(id).subscribe({
       next: (result)=>{
         alert("Deleted Successfully");
-        this.getAllGuestDeatails();
+        this.getAllProduct();
       },
       error: ()=>{
         alert("Error While Deleting");
       }
     })
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -82,5 +86,6 @@ export class GuestCurdComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
 
 }

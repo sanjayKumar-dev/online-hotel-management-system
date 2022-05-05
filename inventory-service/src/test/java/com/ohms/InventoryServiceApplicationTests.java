@@ -46,7 +46,7 @@ class InventoryServiceApplicationTests {
 	@Test
 	void updateProductTest() {
 		Product product = new Product(221, "Towel", "Inventory",20);
-		inventoryService.updateProduct(221, product);
+		inventoryService.updateProduct(product);
 		verify(inventoryRepository,times(1)).save(product);
 	}
 	

@@ -115,6 +115,7 @@ public class Controller {
 	}
 	
 	@GetMapping("/getemailid/{guestId}")
+	@Operation(summary = "Return Email Id for requested guestID")
 	public String getEmailID(@PathVariable int guestId) {
 		try {
 			return guestService.getEmailID(guestId);

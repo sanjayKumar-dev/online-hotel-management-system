@@ -20,22 +20,27 @@ public class InventoryService {
 	@Autowired
 	private InventoryRepository inventoryRepository;
 	
+	// It takes product as input and add in database
 	public void addProduct(Product product) {
 		inventoryRepository.save(product);
 	}
 	
+	// It returns list of product
 	public List<Product> getAllProducts(){
 		return inventoryRepository.findAll();
 	}
 	
+	// Return product detail for requested id
 	public Optional<Product> getProductById(int productId) {
 		return inventoryRepository.findById(productId);
 	}
 	
-	public void updateProduct(int productId, Product product) {
+	// Updates the product detail
+	public void updateProduct(Product product) {
 		inventoryRepository.save(product);
 	}
 	
+	// Delete the product detail
 	public void deleteProduct(int productId) {
 		inventoryRepository.deleteById(productId);
 	}

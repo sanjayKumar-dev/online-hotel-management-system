@@ -29,6 +29,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import {MatSortModule} from '@angular/material/sort';
     BookingComponent,
     ResponseMessageComponent,
     GuestCurdComponent,
-    GuestDialogComponent
+    GuestDialogComponent,
+    InventoryComponent,
+    ProductDialogComponent
   ],
   imports: [
     BrowserModule,
