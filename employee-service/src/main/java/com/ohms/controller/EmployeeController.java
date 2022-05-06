@@ -1,9 +1,14 @@
 package com.ohms.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,42 +19,89 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ohms.model.Employee;
+import com.ohms.model.Response;
 import com.ohms.service.EmployeeService;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 
 @RestController
 @RequestMapping("/employee")
+@CrossOrigin("http://localhost:4200/")
 public class EmployeeController {
 	
 	@Autowired
 	private EmployeeService employeeService;
 	
+	// For logging errors
+	Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+	
+	// To add new Employee into Inventory Database
+	
 	@PostMapping("/add")
-	public String addEmployee(@RequestBody Employee employee) {
-		employeeService.addEmployee(employee);
-		return "Employee Added Successfully";
+	@Operation(summary = "To add new Employee into Inventory Database")
+	public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
+		try {
+			employeeService.addEmployee(employee);
+			return ResponseEntity.ok(new Response("Product Added"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new Response("Error while adding product"));
+		}
 	}
+	
+	// Return all the Employee Details in the form of list
 	
 	@GetMapping("/get")
+	@Operation(summary = "Return all the Employee Details in the form of list")
 	public List<Employee> getAllEmployee(){
-		return employeeService.getAllEmployee();
+		try {
+			return employeeService.getAllEmployee();
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return new ArrayList<Employee>(null);
+		}
 	}
+	
+	// Return Employee Detail for requested id
 	
 	@GetMapping("/get/{employeeId}")
+	@Operation(summary = "Return Employee Detail for requested id")
 	public Optional<Employee> getEmployeeById(@PathVariable int employeeId) {
-		return employeeService.getEmployeeById(employeeId);
+		try {
+			return employeeService.getEmployeeById(employeeId);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return null;
+		}
 	}
 	
-	@PutMapping("/update/{employeeId}")
-	public String updateRoom(@PathVariable int employeeId, @RequestBody Employee employee) {
-		employeeService.updateEmployee(employeeId, employee);
-		return "Update Successfully";
+	// Update Employee Detail for requested Id
+	
+	@PutMapping("/update")
+	@Operation(summary = "Update Employee Detail for requested Id")
+	public ResponseEntity<?> updateRoom(@RequestBody Employee employee) {
+		try {
+			employeeService.updateEmployee(employee);
+			return ResponseEntity.ok(new Response("Updated the employee"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new Response("Error while updating employee"));
+		}
 	}
+	
+	// Delete Employee Detail for requested Id
 	
 	@DeleteMapping("/delete/{employeeId}")
-	public String deleteEmployee(@PathVariable int employeeId) {
-		employeeService.deleteEmployee(employeeId);
-		return "Deleted Successfully";
+	@Operation(summary = "Delete Employee Detail for requested Id")
+	public ResponseEntity<?> deleteEmployee(@PathVariable int employeeId) {
+		try {
+			employeeService.deleteEmployee(employeeId);
+			return ResponseEntity.ok(new Response("Product Deleted"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new Response("Error while Deleting Product"));
+		}
 	}
 
 }

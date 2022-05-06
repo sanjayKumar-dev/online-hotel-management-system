@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddGuestComponent } from './components/add-guest/add-guest.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 import { GuestCurdComponent } from './components/guest-curd/guest-curd.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,11 +19,13 @@ const routes: Routes = [
       { path: 'booking', component: BookingComponent},
       { path: 'response', component: ResponseMessageComponent},
       {path: 'guest', component: GuestCurdComponent},
-      {path: 'inventory', component: InventoryComponent}
+      {path: 'inventory', component: InventoryComponent},
+      {path: 'employee', component: EmployeeComponent}
     ]
   },
   {path: 'guestcurd', component: GuestCurdComponent},
-  {path: 'inventory', component: InventoryComponent}
+  {path: 'inventory', component: InventoryComponent},
+  {path: 'employee', component: EmployeeComponent}
   
 ];
 

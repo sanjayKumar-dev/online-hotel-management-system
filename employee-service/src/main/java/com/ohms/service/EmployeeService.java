@@ -15,22 +15,32 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
+	@Autowired
+	private SequenceService sequenceService;
+	
+	// Add Employee
 	public void addEmployee(Employee employee) {
+		int getId = sequenceService.getNextSequence("employee");
+		employee.setEmployeeId(getId);
 		employeeRepository.save(employee);
 	}
 	
+	// Return all the Employee Details in the form of list
 	public List<Employee> getAllEmployee(){
 		return employeeRepository.findAll();
 	}
 	
+	// Return Employee Detail for requested id
 	public Optional<Employee> getEmployeeById(int employeeId) {
 		return employeeRepository.findById(employeeId);
 	}
 	
-	public void updateEmployee(int employeeId, Employee employee) {
+	// Update Employee Detail for requested Id
+	public void updateEmployee(Employee employee) {
 		employeeRepository.save(employee);
 	}
 	
+	// Delete Employee Detail for requested Id
 	public void deleteEmployee(int employeeId) {
 		employeeRepository.deleteById(employeeId);
 	}

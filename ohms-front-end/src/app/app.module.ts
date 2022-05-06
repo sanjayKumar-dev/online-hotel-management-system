@@ -31,6 +31,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { EmployeeDialogComponent } from './components/employee-dialog/employee-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { ProductDialogComponent } from './components/product-dialog/product-dial
     GuestCurdComponent,
     GuestDialogComponent,
     InventoryComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    EmployeeComponent,
+    EmployeeDialogComponent
   ],
   imports: [
     BrowserModule,
