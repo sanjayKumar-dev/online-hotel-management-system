@@ -1,26 +1,18 @@
 <h1 mat-dialog-title>Guest</h1>
 <div mat-dialog-content>
 
-    <form [formGroup]="guestForm">
+    <form [formGroup]="productForm">
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input formControlName="guestName" matInput placeholder="Enter Guest Name">
+            <input formControlName="productName" matInput placeholder="Enter Product Name">
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Age</mat-label>
-            <input formControlName="guestAge" matInput type="number" placeholder="Enter Guest Age">
+            <mat-label>Category</mat-label>
+            <input formControlName="productCategory" matInput placeholder="Enter Product Category">
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Contact Number</mat-label>
-            <input formControlName="guestContactNumber" matInput type="number" placeholder="Enter Guest Contact Number">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Email Id</mat-label>
-            <input formControlName="guestEmailId" matInput placeholder="Enter Guest Email Id">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Address</mat-label>
-            <input formControlName="guestAddress" matInput placeholder="Enter Guest Address">
+            <mat-label>Quantity</mat-label>
+            <input formControlName="quantity" matInput type="number" placeholder="Enter Quantity">
         </mat-form-field>
     </form>
 </div>

@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>person_outline</mat-icon>
+      <mat-icon>inventory</mat-icon>
     </button>
-    <span>Guest Service</span>
+    <span>Inventory Service</span>
     <span class="example-spacer"></span>
-    <button mat-raised-button (click)="openDialog()"><mat-icon>person_add</mat-icon></button>
+    <button mat-raised-button (click)="openDialog()"><mat-icon>inventory+</mat-icon></button>
   </mat-toolbar>
 
    <div class="container">
@@ -51,7 +51,7 @@
                     <button mat-icon-button color="primary" (click)="editProduct(row)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" (click)="deleteProduct(row.guestId)">
+                    <button mat-icon-button color="warn" (click)="deleteProduct(row.productId)">
                         <mat-icon>delete</mat-icon>
                     </button>    
                 </td>

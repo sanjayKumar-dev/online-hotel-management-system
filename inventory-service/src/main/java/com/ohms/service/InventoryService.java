@@ -20,8 +20,13 @@ public class InventoryService {
 	@Autowired
 	private InventoryRepository inventoryRepository;
 	
+	@Autowired
+	private SequenceService sequenceService;
+	
 	// It takes product as input and add in database
 	public void addProduct(Product product) {
+		int getId = sequenceService.getNextSequence("product");
+		product.setProductId(getId);
 		inventoryRepository.save(product);
 	}
 	
