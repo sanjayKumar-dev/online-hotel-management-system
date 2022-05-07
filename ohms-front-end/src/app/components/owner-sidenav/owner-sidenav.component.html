@@ -5,18 +5,25 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
         <mat-icon>dashboard</mat-icon> Dashboard
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/addguest" >
+    <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/addguest" >
          <mat-icon>person</mat-icon> Add Guest 
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/guest" >
-        <mat-icon>person_outline</mat-icon> Guest Service 
-   </a>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/booking">
-         <mat-icon>bed</mat-icon> Book Room
-    </a>
+        <mat-icon>bed</mat-icon> Book Room
+   </a> -->
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/guest" >
+        <mat-icon>person</mat-icon> Guest Service 
+   </a>
+    
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/inventory">
         <mat-icon>inventory</mat-icon> Inventory
    </a>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/employee"> <mat-icon>people</mat-icon>Employee Service</a>
-    <a mat-list-item> <mat-icon>house</mat-icon> Link 6 </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/roombooking"> <mat-icon>book</mat-icon> Room Booking Service </a>
 </mat-nav-list>
+
+<footer class="footer">
+    <button mat-raised-button color="warn">
+        Log Out
+    </button>
+</footer>

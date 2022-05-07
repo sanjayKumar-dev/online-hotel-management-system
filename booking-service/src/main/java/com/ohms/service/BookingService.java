@@ -1,5 +1,8 @@
 package com.ohms.service;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +16,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.ohms.model.BookedRooms;
 import com.ohms.model.Booking;
 import com.ohms.model.BookingResponse;
+import com.ohms.model.DateData;
 import com.ohms.model.Payment;
+import com.ohms.model.Room;
 import com.ohms.model.RoomDTO;
 import com.ohms.notification.EmailNotification;
 import com.ohms.repository.BookingRepository;
@@ -153,5 +158,34 @@ public class BookingService {
 	public Booking getBookingDetailByRoomIdAndCheckInDate(String roomId, Date checkInDate) {
 		return bookingRepository.findByRoomIdAndCheckInDate(roomId, checkInDate);
 	}
+	
+	public List<Room> getAvilableRoom(Date date){
+		System.out.println(date);
+		String _uri = "http://localhost:8082/room/get";		
+		List<Room> roomList = webClientBuilder.build().get()
+				.uri(_uri)
+				.retrieve().bodyToMono(new ParameterizedTypeReference<List<Room>>() {}).block();
+		
+		BookedRooms bookedRooms = bookedRoomService.findByDate(date);
+		if(bookedRooms != null) {
+			List<String> bookedList = bookedRooms.getRoomIds();
+			
+			Comparator<Room> compareByRoomId = (Room r1, Room r2)-> r1.getRoomId().compareTo(r2.getRoomId());
+			Collections.sort(roomList, compareByRoomId); // Sorted the roomList
+			Collections.sort(bookedList);  				 // Sorted the booked room list
+			int j = 0;
+			for(int i=0; i<roomList.size(); i++) {
+				if(roomList.get(i).getRoomId().equals(bookedList.get(j))) {
+					roomList.remove(i);
+					j++;
+				}
+			}
+		}
+		
+		
+		return roomList;
+	}
+	
+	
 
 }

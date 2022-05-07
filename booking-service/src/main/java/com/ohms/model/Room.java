@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookingResponse {
-	private String message;
+public class Room {
+	private String roomId;
+	private String roomType;
+	private int numberOfBeds;
+	private boolean status;
 	private double price;
-	private int bookingId;
 }

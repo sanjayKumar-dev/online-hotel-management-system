@@ -8,6 +8,7 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { LoginComponent } from './components/login/login.component';
 import { OwnerComponent } from './components/owner/owner.component';
 import { ResponseMessageComponent } from './components/response-message/response-message.component';
+import { RoomBookComponent } from './components/room-book/room-book.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -20,12 +21,14 @@ const routes: Routes = [
       { path: 'response', component: ResponseMessageComponent},
       {path: 'guest', component: GuestCurdComponent},
       {path: 'inventory', component: InventoryComponent},
-      {path: 'employee', component: EmployeeComponent}
+      {path: 'employee', component: EmployeeComponent},
+      {path: 'roombooking', component: RoomBookComponent}
     ]
   },
   {path: 'guestcurd', component: GuestCurdComponent},
   {path: 'inventory', component: InventoryComponent},
-  {path: 'employee', component: EmployeeComponent}
+  {path: 'employee', component: EmployeeComponent},
+  {path: 'roombooking', component: RoomBookComponent}
   
 ];
 

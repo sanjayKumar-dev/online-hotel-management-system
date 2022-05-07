@@ -33,6 +33,11 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeeDialogComponent } from './components/employee-dialog/employee-dialog.component';
+import { RoomBookComponent } from './components/room-book/room-book.component';
+import { RoomBookDialogComponent } from './components/room-book-dialog/room-book-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,9 @@ import { EmployeeDialogComponent } from './components/employee-dialog/employee-d
     InventoryComponent,
     ProductDialogComponent,
     EmployeeComponent,
-    EmployeeDialogComponent
+    EmployeeDialogComponent,
+    RoomBookComponent,
+    RoomBookDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -73,9 +80,15 @@ import { EmployeeDialogComponent } from './components/employee-dialog/employee-d
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

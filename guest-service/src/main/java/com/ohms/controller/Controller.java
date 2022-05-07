@@ -53,7 +53,7 @@ public class Controller {
 			}
 		} catch (Exception e) {
 			logger.error(e.toString());
-			return ResponseEntity.ok(new GuestResponse("Problem in Adding Guest Detail", 0, ""));
+			return ResponseEntity.badRequest().body(new GuestResponse("Problem in Adding Guest Detail", 0, ""));
 		}
 	}
 	

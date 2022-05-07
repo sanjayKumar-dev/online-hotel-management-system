@@ -1,0 +1,102 @@
+<h1 mat-dialog-title>Room Booking</h1>
+<div mat-dialog-content>
+    <mat-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="guestForm">
+            <ng-template matStepLabel>Guest Details</ng-template>
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input formControlName="guestName" matInput placeholder="Enter Guest Name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Age</mat-label>
+                <input formControlName="guestAge" matInput type="number" placeholder="Enter Guest Age">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Contact Number</mat-label>
+                <input formControlName="guestContactNumber" matInput type="number" placeholder="Enter Guest Contact Number">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email Id</mat-label>
+                <input formControlName="guestEmailId" matInput placeholder="Enter Guest Email Id">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+                <input formControlName="guestAddress" matInput placeholder="Enter Guest Address">
+            </mat-form-field>
+
+            <div>
+            <button mat-raised-button color="primary" matStepperNext (click)="addGuest()">Next</button>
+            </div>
+        </form>
+        </mat-step>
+
+
+        <!-- Booking Form -->
+        <mat-step [stepControl]="bookingForm" label="Booking Details">
+            <form [formGroup]="bookingForm">
+
+                <!-- Check - In - Out Date -->
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter Check-In and Check-out Date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input formControlName="checkInDate" matStartDate placeholder="Check-In-Date">
+                        <input formControlName="checkOutDate" matEndDate placeholder="Check-Out-Date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Room Number</mat-label>
+                    <input formControlName="roomId" matInput placeholder="Enter Guest Contact Number">
+                </mat-form-field>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" matStepperNext (click)="addBookingDetails()">Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+
+
+        <!-- Payment Form -->
+        <mat-step label="Payment Details">
+            <form [formGroup]="paymentForm">
+                <!-- <ng-template matStepLabel>Payment Details</ng-template> -->
+    
+                <mat-form-field appearance="outline" >
+                    <mat-label>Payment Mode</mat-label>
+                    <input formControlName="paymentMode" matInput placeholder="Enter Guest Name" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Payment Status</mat-label>
+                    <mat-select formControlName="paymentStatus" required>
+                        <mat-option value="true">Payment Confirm</mat-option>
+                        <mat-option value="false">Payment Not Done</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+    
+                <div>
+                <button mat-raised-button color="primary" matStepperNext (click)="finalBooking()">Next</button>
+                </div>
+            </form>
+
+        </mat-step>
+
+        <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()" (click)="resetData()">Reset</button>
+        </div>
+        </mat-step>
+    </mat-stepper>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
+</div>

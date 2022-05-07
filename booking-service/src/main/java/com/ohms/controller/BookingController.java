@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 
 import com.ohms.model.Booking;
+import com.ohms.model.DateData;
 import com.ohms.model.Payment;
+import com.ohms.model.Room;
+import com.ohms.model.RoomDTO;
 import com.ohms.service.BookingService;
 
 /**
@@ -75,5 +78,10 @@ public class BookingController {
 	@GetMapping("/gbridandcid/{roomId}/{checkInDate}")
 	public Booking getBookingDetailByRoomIdAndCID(@PathVariable String roomId, @PathVariable Date checkInDate) {
 		return bookingService.getBookingDetailByRoomIdAndCheckInDate(roomId, checkInDate);
+	}
+	
+	@GetMapping("/getavilaberoom/{date}")
+	public List<Room> getAvilableRoom(@PathVariable Date date){
+		return bookingService.getAvilableRoom(date);
 	}
 }
