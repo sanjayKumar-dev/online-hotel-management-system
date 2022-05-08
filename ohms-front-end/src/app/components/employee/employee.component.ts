@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from 'src/app/service/employee.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EmployeeDialogComponent } from '../employee-dialog/employee-dialog.component';
@@ -20,7 +21,9 @@ export class EmployeeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private api: EmployeeService) { }
+  constructor(private dialog: MatDialog, 
+    private api: EmployeeService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllEmployee();
@@ -46,7 +49,9 @@ export class EmployeeComponent implements OnInit {
       },
       error: (err)=>{
         console.log(err);
-        alert("Error while Featching Employee Data!!");
+        this.toastr.error("Error in while featching Employee data", "Error", {
+          timeOut: 3000
+        });
       }
     })
   }
@@ -71,11 +76,15 @@ export class EmployeeComponent implements OnInit {
 
         this.api.deleteEmployee(id).subscribe({
           next: (result)=>{
-            alert("Deleted Successfully");
             this.getAllEmployee();
+            this.toastr.success("Deleted Successfully", "Success", {
+              timeOut: 1000
+            });
           },
           error: ()=>{
-            alert("Error while deleting!!");
+            this.toastr.error("Error While Deleting", "Error", {
+              timeOut: 2000
+            });
           }
         })
 

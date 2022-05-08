@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/service/login.service';
 
 
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   public loginDisabled = false;
   constructor(private loginService: LoginService, 
     private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService) { }
 
   loginForm!: FormGroup;
 
@@ -43,16 +45,25 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('username', result.username);
           localStorage.setItem('email', result.email);
           if(setRole === 'ROLE_OWNER'){
+            this.toastr.success("Login ","Login Successfully", {
+              timeOut: 1000,
+            });
             this.router.navigate(['owner']);
+            
           }
         },
         error: (err)=>{
           console.log(err);
-          alert("Error While Login!!");          
+          this.toastr.error("Error While Login", "Error", {
+            timeOut: 3000
+          })
+
         }
       })      
     }else{
-      alert("Enter the value");
+      this.toastr.error("Enter the value", "", {
+        timeOut: 1000
+      })
     }
   }
 }

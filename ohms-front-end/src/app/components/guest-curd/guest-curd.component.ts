@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-guest-curd',
   templateUrl: './guest-curd.component.html',
@@ -20,7 +21,9 @@ export class GuestCurdComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private api: GuestCurdService) { }
+  constructor(private dialog: MatDialog, 
+    private api: GuestCurdService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllGuestDeatails();
@@ -47,7 +50,9 @@ export class GuestCurdComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: (err)=>{
-        alert("Error While Featching Guest Data!");
+        this.toastr.error("Error in while featching Guest data", "Error", {
+          timeOut: 3000
+        });
       }
     })
   }
@@ -72,11 +77,15 @@ export class GuestCurdComponent implements OnInit {
 
         this.api.deleteGuest(id).subscribe({
           next: (result)=>{
-            alert("Deleted Successfully");
             this.getAllGuestDeatails();
+            this.toastr.success("Deleted Successfully", "Success", {
+              timeOut: 1000
+            });
           },
           error: ()=>{
-            alert("Error While Deleting");
+            this.toastr.error("Error While Deleting", "Error", {
+              timeOut: 2000
+            });
           }
         })
         

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
@@ -21,7 +22,9 @@ export class InventoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private api: InventoryService) { }
+  constructor(private dialog: MatDialog, 
+    private api: InventoryService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProduct();
@@ -50,7 +53,9 @@ export class InventoryComponent implements OnInit {
       },
       error: (err)=>{
         console.log(err);
-        alert("Error While Featching Inventory Data!!");
+        this.toastr.error("Error in while featching Inventory data", "Error", {
+          timeOut: 3000
+        });
       }
     })
   }
@@ -75,11 +80,16 @@ export class InventoryComponent implements OnInit {
         
         this.api.deleteProduct(id).subscribe({
           next: (result)=>{
-            alert("Deleted Successfully");
             this.getAllProduct();
+            this.toastr.success("Deleted Successfully", "Success", {
+              timeOut: 1000
+            });
           },
           error: ()=>{
             alert("Error While Deleting");
+            this.toastr.error("Error While Deleting", "Error", {
+              timeOut: 2000
+            });
           }
         })
         

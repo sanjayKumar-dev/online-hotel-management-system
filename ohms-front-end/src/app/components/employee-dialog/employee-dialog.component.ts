@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from 'src/app/service/employee.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class EmployeeDialogComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private api: EmployeeService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogRef: MatDialogRef<EmployeeDialogComponent>) { }
+    private dialogRef: MatDialogRef<EmployeeDialogComponent>,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.employeeForm = this.formBuilder.group({
@@ -47,13 +49,17 @@ export class EmployeeDialogComponent implements OnInit {
       if(this.employeeForm.valid){
         this.api.postEmployee(this.employeeForm.value).subscribe({
           next: (result)=>{
-            alert("Employee Added Successfully");
+            this.toastr.success("Employee Added Successfully", "Sucess", {
+              timeOut: 1000
+            });
             this.employeeForm.reset();
             this.dialogRef.close('save');
           },
           error: (err)=>{
             console.log(err);
-            alert("Error While adding Employee!!");            
+            this.toastr.error("Error while Adding Employee", "Error", {
+              timeOut: 2000
+            });
           }
         })
       }
@@ -65,13 +71,17 @@ export class EmployeeDialogComponent implements OnInit {
   updateEmployee(){
     this.api.updateEmployee(this.employeeForm.value).subscribe({
       next: (result)=>{
-        alert("Updated Details");
+        this.toastr.success("Employee Detail Updated Successfully", "Sucess", {
+          timeOut: 1000
+        });
         this.employeeForm.reset();
         this.dialogRef.close('update');
       },
       error: (err)=>{
         console.log(err);
-        alert("Error while updating employee detail!!");        
+        this.toastr.error("Error while Updating Detail", "Error", {
+          timeOut: 2000
+        });        
       }
     })
   }

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { InventoryService } from 'src/app/service/inventory.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class ProductDialogComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private api: InventoryService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogRef: MatDialogRef<ProductDialogComponent>) { }
+    private dialogRef: MatDialogRef<ProductDialogComponent>,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
@@ -39,13 +41,17 @@ export class ProductDialogComponent implements OnInit {
       if(this.productForm.valid){
         this.api.postProduct(this.productForm.value).subscribe({
           next: (result)=>{
-            alert("Product Added Successfully");
+            this.toastr.success("Product Added Successfully", "Sucess", {
+              timeOut: 1000
+            });
             this.productForm.reset();
             this.dialogRef.close('save');
           },
           error: (err)=>{
             console.log(err);
-            alert("Error While adding Product!!");            
+            this.toastr.error("Error while Adding Product", "Error", {
+              timeOut: 2000
+            });            
           }
         })
       }
@@ -57,13 +63,17 @@ export class ProductDialogComponent implements OnInit {
   updateProduct(){
     this.api.updateProduct(this.productForm.value).subscribe({
       next: (result)=>{
-        alert("Updated Details");
+        this.toastr.success("Product Detail Updated Successfully", "Sucess", {
+          timeOut: 1000
+        });
         this.productForm.reset();
         this.dialogRef.close('update');
       },
       error: (err)=>{
         console.log(err);
-        alert("Error while updating product detail!!");        
+        this.toastr.error("Error while Updating Detail", "Error", {
+          timeOut: 2000
+        });       
       }
     })
   }

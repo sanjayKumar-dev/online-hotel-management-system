@@ -42,6 +42,8 @@ import { BookingOperationComponent } from './components/booking-operation/bookin
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +91,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     MatDatepickerModule,

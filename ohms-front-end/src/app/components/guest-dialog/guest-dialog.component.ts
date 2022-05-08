@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GuestCurdService } from 'src/app/service/guest-curd.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-guest-dialog',
@@ -15,7 +16,8 @@ export class GuestDialogComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private api: GuestCurdService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogRef: MatDialogRef<GuestDialogComponent>) { }
+    private dialogRef: MatDialogRef<GuestDialogComponent>,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.guestForm = this.formBuilder.group({
@@ -39,19 +41,21 @@ export class GuestDialogComponent implements OnInit {
   }
 
   addGuest(){
-    // console.log(this.guestForm.value);
     if(!this.editData){
       if(this.guestForm.valid){
         this.api.postGuest(this.guestForm.value).subscribe({
           next: (result)=>{
-            console.log(result);
-            alert("Guest Added Successfully");
+            this.toastr.success("Guest Added Successfully", "Sucess", {
+              timeOut: 1000
+            });
             this.guestForm.reset();
             this.dialogRef.close('save');
           },
           error:(err)=>{
             console.log(err);
-            alert("Error while Adding Guest");
+            this.toastr.error("Error while Adding Guest", "Error", {
+              timeOut: 2000
+            });
           }
         })
       }
@@ -63,17 +67,19 @@ export class GuestDialogComponent implements OnInit {
 
   updateGuest(){
     console.log(this.guestForm.value);
-    
     this.api.updateGuest(this.guestForm.value).subscribe({
       next: (result)=>{
-        alert("Updated Guest Detail Successfully");
+        this.toastr.success("Guest Detail Updated Successfully", "Sucess", {
+          timeOut: 1000
+        });
         this.guestForm.reset();
         this.dialogRef.close('update');
       },
       error: (err)=>{
         console.log(err);
-        
-        alert("Error While Updating Record!!");
+        this.toastr.error("Error while Updating Detail", "Error", {
+          timeOut: 2000
+        });
       }
     })
   }
