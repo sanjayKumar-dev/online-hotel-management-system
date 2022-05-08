@@ -12,18 +12,26 @@
         <mat-icon>bed</mat-icon> Book Room
    </a> -->
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/guest" >
-        <mat-icon>person</mat-icon> Guest Service 
+        <mat-icon>person</mat-icon> Guest
    </a>
     
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/inventory">
         <mat-icon>inventory</mat-icon> Inventory
    </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/employee"> <mat-icon>people</mat-icon>Employee Service</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/roombooking"> <mat-icon>book</mat-icon> Room Booking Service </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/employee"> 
+        <mat-icon>people</mat-icon>Employee 
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/roombooking">
+        <mat-icon>book</mat-icon> Room Booking 
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/owner/bookingoperation">
+        <mat-icon>assignment</mat-icon> Booking Operation
+    </a>
 </mat-nav-list>
 
 <footer class="footer">
     <button mat-raised-button color="warn">
-        Log Out
+        <!-- Log Out -->
+        <mat-icon>logout</mat-icon>
     </button>
 </footer>

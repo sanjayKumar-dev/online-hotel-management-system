@@ -12,4 +12,10 @@ export class OwnerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  title = 'admin-panel-layout';
+  sideBarOpen = true;
+
+  sideBarToggler() {
+    this.sideBarOpen = !this.sideBarOpen;
+  }
 }

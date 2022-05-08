@@ -22,5 +22,6 @@
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px;
-    padding-left: 80px;
+    padding-left: 85px;
+    padding-bottom: 50px;
   }

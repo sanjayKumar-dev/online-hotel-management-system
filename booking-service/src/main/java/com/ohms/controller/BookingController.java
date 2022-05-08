@@ -3,6 +3,8 @@ package com.ohms.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,10 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 
 import com.ohms.model.Booking;
-import com.ohms.model.DateData;
 import com.ohms.model.Payment;
+import com.ohms.model.ResponseMessage;
 import com.ohms.model.Room;
-import com.ohms.model.RoomDTO;
 import com.ohms.service.BookingService;
 
 /**
@@ -33,6 +34,8 @@ public class BookingController {
 
 	@Autowired
 	private BookingService bookingService;
+	
+	Logger logger = LoggerFactory.getLogger(BookingController.class);
 	
 	
 	@PostMapping("/add")
@@ -49,18 +52,53 @@ public class BookingController {
 	
 	@PostMapping("/payment")
 	@Operation(summary = "Update payment details")
-	public String addPaymentDetails(@RequestBody Payment payment) {
-		System.out.println(payment.getBookingID());
-		System.out.println(payment.getPaymentMode());
-		System.out.println(payment.isPaymentStatus());
-		bookingService.addPaymentDetail(payment.getBookingID(), payment);
-		return "Updated the payment detail";
+	public ResponseEntity<?> addPaymentDetails(@RequestBody Payment payment) {
+//		System.out.println(payment.getBookingID());
+//		System.out.println(payment.getPaymentMode());
+//		System.out.println(payment.isPaymentStatus());
+		try {
+			bookingService.addPaymentDetail(payment.getBookingID(), payment);
+			return ResponseEntity.ok(new ResponseMessage("Booking Successfully"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new ResponseMessage("Error in updating payment details"));
+		}
 	}
 	
 	@GetMapping("/cancel/{bookingId}")
 	@Operation(summary = "Cancel the existing booking")
-	public String cancleBookink(@PathVariable int bookingId) {
-		return bookingService.cancleBookink(bookingId);
+	public ResponseEntity<?> cancelBookink(@PathVariable int bookingId) {
+		try {
+			bookingService.cancelBooking(bookingId);
+			return ResponseEntity.ok(new ResponseMessage("Booking canclled Successfully"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new ResponseMessage("Error in updating payment details"));
+		}
+	}
+	
+	@GetMapping("/checkin/{bookingId}")
+	@Operation(summary = "Check In")
+	public ResponseEntity<?> checkIn(@PathVariable int bookingId){
+		try {
+			bookingService.checkIn(bookingId);
+			return ResponseEntity.ok(new ResponseMessage("Check In Successfully"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new ResponseMessage("Error in Check In"));
+		}
+	}
+	
+	@GetMapping("/checkout/{bookingId}")
+	@Operation(summary = "Check In")
+	public ResponseEntity<?> checkOut(@PathVariable int bookingId){
+		try {
+			bookingService.checkOut(bookingId);
+			return ResponseEntity.ok(new ResponseMessage("Check Out Successfully"));
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return ResponseEntity.badRequest().body(new ResponseMessage("Error Out Check In"));
+		}
 	}
 	
 	@GetMapping("/get/{bookingId}")
@@ -75,10 +113,6 @@ public class BookingController {
 		return bookingService.getBookingsByCheckInDate(checkInDate);
 	}
 	
-	@GetMapping("/gbridandcid/{roomId}/{checkInDate}")
-	public Booking getBookingDetailByRoomIdAndCID(@PathVariable String roomId, @PathVariable Date checkInDate) {
-		return bookingService.getBookingDetailByRoomIdAndCheckInDate(roomId, checkInDate);
-	}
 	
 	@GetMapping("/getavilaberoom/{date}")
 	public List<Room> getAvilableRoom(@PathVariable Date date){

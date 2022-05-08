@@ -1,6 +1,5 @@
 package com.ohms.service;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -16,11 +15,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.ohms.model.BookedRooms;
 import com.ohms.model.Booking;
 import com.ohms.model.BookingResponse;
-import com.ohms.model.DateData;
 import com.ohms.model.Payment;
 import com.ohms.model.Room;
 import com.ohms.model.RoomDTO;
 import com.ohms.notification.EmailNotification;
+import com.ohms.repository.BookedRoomRepository;
 import com.ohms.repository.BookingRepository;
 
 @Service
@@ -40,6 +39,9 @@ public class BookingService {
 	
 	@Autowired
 	private SequenceService sequenceService;
+	
+	@Autowired
+	private BookedRoomRepository bookedRoomRepository;
 	
 	/*
 	 * This Method takes Booking object as input and get room price from 
@@ -141,23 +143,38 @@ public class BookingService {
 				booking.getBookingId()+". Having Check-In-Date : "+ booking.getCheckInDate()
 				+". Your payment is done by mode : "+ booking.getPaymentMode()+".";
 		emailNotification.sendEmail(guestEmail, subject, body);
-		
 	}
 	
 	
 	
 	//Set the booking status to Booking Cancelled
 	
-	public String cancleBookink(int bookingId) {
+	public String cancelBooking(int bookingId) {
 		Booking booking = bookingRepository.findById(bookingId).get();
 		booking.setBookingStatus("Booking Cancelled");
+		BookedRooms bookedRooms = bookedRoomRepository.findByDate(booking.getCheckInDate());
+		bookedRooms.getRoomIds().remove(booking.getRoomId());
+		bookedRoomRepository.save(bookedRooms);
 		bookingRepository.save(booking);
 		return "Booking Cancelled";
 	}
 	
-	public Booking getBookingDetailByRoomIdAndCheckInDate(String roomId, Date checkInDate) {
-		return bookingRepository.findByRoomIdAndCheckInDate(roomId, checkInDate);
+	// Update the check in detail
+	
+	public void checkIn(int bookingId) {
+		Booking booking = bookingRepository.findById(bookingId).get();
+		booking.setCheckInStatus(true);
+		bookingRepository.save(booking);
 	}
+	
+	// Update the check out detail
+	public void checkOut(int bookingId) {
+		Booking booking = bookingRepository.findById(bookingId).get();
+		booking.setChekOutStatus(true);
+		bookingRepository.save(booking);
+	}
+	
+	// Return the List of room available for particular date
 	
 	public List<Room> getAvilableRoom(Date date){
 		System.out.println(date);
@@ -165,11 +182,9 @@ public class BookingService {
 		List<Room> roomList = webClientBuilder.build().get()
 				.uri(_uri)
 				.retrieve().bodyToMono(new ParameterizedTypeReference<List<Room>>() {}).block();
-		
 		BookedRooms bookedRooms = bookedRoomService.findByDate(date);
 		if(bookedRooms != null) {
 			List<String> bookedList = bookedRooms.getRoomIds();
-			
 			Comparator<Room> compareByRoomId = (Room r1, Room r2)-> r1.getRoomId().compareTo(r2.getRoomId());
 			Collections.sort(roomList, compareByRoomId); // Sorted the roomList
 			Collections.sort(bookedList);  				 // Sorted the booked room list
@@ -181,10 +196,9 @@ public class BookingService {
 				}
 			}
 		}
-		
-		
 		return roomList;
 	}
+	
 	
 	
 

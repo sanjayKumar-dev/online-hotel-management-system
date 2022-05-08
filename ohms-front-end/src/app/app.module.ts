@@ -38,6 +38,8 @@ import { RoomBookDialogComponent } from './components/room-book-dialog/room-book
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { BookingOperationComponent } from './components/booking-operation/booking-operation.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     EmployeeComponent,
     EmployeeDialogComponent,
     RoomBookComponent,
-    RoomBookDialogComponent
+    RoomBookDialogComponent,
+    BookingOperationComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

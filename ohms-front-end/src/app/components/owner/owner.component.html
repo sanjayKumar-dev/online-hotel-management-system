@@ -1,10 +1,10 @@
 <!-- <p>owner works!</p> -->
 <mat-drawer-container>
-    <mat-drawer mode="side" opened="true">
+    <mat-drawer mode="side" [opened]="sideBarOpen">
       <app-owner-sidenav></app-owner-sidenav>
     </mat-drawer>
     <mat-drawer-content>
-        <app-header></app-header>
+        <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
         <router-outlet></router-outlet>
     </mat-drawer-content>
  </mat-drawer-container>

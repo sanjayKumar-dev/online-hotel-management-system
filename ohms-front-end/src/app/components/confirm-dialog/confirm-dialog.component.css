@@ -1,0 +1,13 @@
+p{
+    font-size: medium;
+    box-sizing: content-box;
+    font-weight: 500;
+    margin: 10px;
+    align-content: center;
+    text-align: center;
+}
+
+.center{
+    margin-top: 15%;
+    text-align: center;
+}
