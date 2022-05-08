@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  userName = "User Name";
+  userName = localStorage.getItem('username');
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
   }

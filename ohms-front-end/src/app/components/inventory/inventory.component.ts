@@ -4,6 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { InventoryService } from 'src/app/service/inventory.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 
 @Component({
@@ -66,15 +67,25 @@ export class InventoryComponent implements OnInit {
   }
 
   deleteProduct(id: number){
-    this.api.deleteProduct(id).subscribe({
-      next: (result)=>{
-        alert("Deleted Successfully");
-        this.getAllProduct();
-      },
-      error: ()=>{
-        alert("Error While Deleting");
+
+    this.dialog.open(ConfirmDialogComponent, {
+      data: 'Do you Want to Delete This Product?'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'confirm'){
+        
+        this.api.deleteProduct(id).subscribe({
+          next: (result)=>{
+            alert("Deleted Successfully");
+            this.getAllProduct();
+          },
+          error: ()=>{
+            alert("Error While Deleting");
+          }
+        })
+        
       }
     })
+    
   }
 
 

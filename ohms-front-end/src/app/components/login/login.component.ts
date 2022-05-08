@@ -12,41 +12,47 @@ import { LoginService } from 'src/app/service/login.service';
 export class LoginComponent implements OnInit {
 
   public loginDisabled = false;
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, 
+    private router: Router,
+    private formBuilder: FormBuilder) { }
+
+  loginForm!: FormGroup;
 
   ngOnInit(): void {
-  }
-  logInUserData = {
-		username: ``,
-		password: ``
-	};
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
 
-  loginResponse ={
-    id: '',
-    username: '',
-    email: '',
-    roles: [
-        ''
-    ],
-    accessToken: '',
-    tokenType: ''
+    if(localStorage.getItem('role') === 'ROLE_OWNER'){
+      this.router.navigate(['owner']);
+    }else{
+      console.log(localStorage.getItem('role'));
+      
+    }
   }
 
-  authenticateUser(date: any){
-    console.log(this.logInUserData);
-    this.loginService.login(this.logInUserData).subscribe(
-      (result)=>{
-        console.log(result);
-        console.log(result.roles[0])
-        if(result.roles[0]=="ROLE_USER"){
-          this.router.navigate(['owner'])
+  loginClick(){
+    if(this.loginForm.valid){
+      this.loginService.login(this.loginForm.value).subscribe({
+        next: (result)=>{
+          const setRole = result.roles[0].toString();
+          localStorage.setItem('role', setRole);
+          localStorage.setItem('token', result.accessToken);
+          localStorage.setItem('tokenType', result.tokenType);
+          localStorage.setItem('username', result.username);
+          localStorage.setItem('email', result.email);
+          if(setRole === 'ROLE_OWNER'){
+            this.router.navigate(['owner']);
+          }
+        },
+        error: (err)=>{
+          console.log(err);
+          alert("Error While Login!!");          
         }
-      },
-      (error)=>{
-        alert("User Name or Passowrd is not correcr");
-        console.log(error);
-      }
-    )
+      })      
+    }else{
+      alert("Enter the value");
+    }
   }
-
 }

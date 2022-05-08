@@ -5,6 +5,7 @@ import { GuestDialogComponent } from '../guest-dialog/guest-dialog.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-guest-curd',
   templateUrl: './guest-curd.component.html',
@@ -63,15 +64,26 @@ export class GuestCurdComponent implements OnInit {
   }
 
   deleteGuest(id: number){
-    this.api.deleteGuest(id).subscribe({
-      next: (result)=>{
-        alert("Deleted Successfully");
-        this.getAllGuestDeatails();
-      },
-      error: ()=>{
-        alert("Error While Deleting");
+
+    this.dialog.open(ConfirmDialogComponent, {
+      data: 'Do you Want to Delete Guest Detail?'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'confirm'){
+
+        this.api.deleteGuest(id).subscribe({
+          next: (result)=>{
+            alert("Deleted Successfully");
+            this.getAllGuestDeatails();
+          },
+          error: ()=>{
+            alert("Error While Deleting");
+          }
+        })
+        
+        
       }
     })
+    
   }
 
   applyFilter(event: Event) {

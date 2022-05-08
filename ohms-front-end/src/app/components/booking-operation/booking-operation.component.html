@@ -68,13 +68,23 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
               <td mat-cell *matCellDef="let row">
-                  <button mat-icon-button color="primary" (click)="checkIn(row)">
+                  <button mat-icon-button
+                          color="primary"
+                          matTooltip="Chek-In"
+                          (click)="checkIn(row)">
                       <mat-icon>task_alt</mat-icon>
                   </button>
-                  <button mat-icon-button color="accent" (click)="checkOut(row)">
+                  <button mat-icon-button 
+                          color="accent" 
+                          matTooltip="Chek-Out"
+                          (click)="checkOut(row)">
                       <mat-icon>check_circle</mat-icon>
                   </button>
-                  <button mat-icon-button color="warn" (click)="cancelBooking(row)">
+                  <button mat-icon-button 
+                          color="warn"
+                          matTooltip="Cancel"
+                          matTooltipClass="example-tooltip-red"  
+                          (click)="cancelBooking(row)">
                     <mat-icon>cancel</mat-icon>
                 </button>
               </td>

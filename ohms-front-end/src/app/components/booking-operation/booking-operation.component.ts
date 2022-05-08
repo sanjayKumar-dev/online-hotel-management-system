@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,7 +9,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 @Component({
   selector: 'app-booking-operation',
   templateUrl: './booking-operation.component.html',
-  styleUrls: ['./booking-operation.component.css']
+  styleUrls: ['./booking-operation.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class BookingOperationComponent implements OnInit {
 

@@ -31,9 +31,10 @@ export class RoomBookComponent implements OnInit {
     date: formatDate(new Date(), 'yyyy-MM-dd', 'en')
   }
   openDialog(){
-    this.dialog.open(RoomBookDialogComponent, {
-      width: '30%'
-    }).afterClosed().subscribe();
+    // this.dialog.open(RoomBookDialogComponent, {
+    //   width: '30%',
+    //   disableClose: true
+    // }).afterClosed().subscribe();
     
   }
 
@@ -54,7 +55,8 @@ export class RoomBookComponent implements OnInit {
   bookRoom(row: any){
     this.dialog.open(RoomBookDialogComponent, {
       width: '50%',
-      data: row
+      data: row,
+      disableClose: true
     })
   }
 

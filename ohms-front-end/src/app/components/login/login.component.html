@@ -1,23 +1,21 @@
-<div class="main">
-  <div class="head">
-    <h1>Onile Hotel Mangement System</h1>
-  </div>
-  <div class="center">
-    <h1>Login</h1>
-    <form #loginForm="ngForm" class="login-form" (ngSubmit)="authenticateUser(loginForm.value)">
-      <div class="txt_field">
-        <input type="text" #nameRef="ngModel" name="username" [(ngModel)]="logInUserData.username" required>
-        <span></span>
-        <label>Username</label>
-      </div>
-      <div class="txt_field">
-        <input type="password" #passRef="ngModel" name="password" [(ngModel)]="logInUserData.password" required>
-        <span></span>
-        <label>Password</label>
-      </div>
-      <input [disabled]="loginDisabled || !loginForm.valid" type="submit">
-    </form>
-  </div>
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align:center;">Login</mat-card-title>
+      <mat-card-content>
+        <form action="" [formGroup]="loginForm">
+          <mat-form-field appearance="outline">
+              <mat-label>User Name</mat-label>
+              <input formControlName="username" matInput placeholder="Enter User Name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input formControlName="password" matInput type="password" placeholder="Enter Password">
+          </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary" class="login-button" (click)="loginClick()">
+          Sign In
+        </button>
+      </mat-card-content>
+  </mat-card>
 </div>
-
 <router-outlet></router-outlet>

@@ -40,6 +40,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BookingOperationComponent } from './components/booking-operation/booking-operation.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatSortModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatTooltipModule
   ],
   providers: [
     MatDatepickerModule,

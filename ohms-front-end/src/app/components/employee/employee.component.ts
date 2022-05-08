@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeService } from 'src/app/service/employee.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EmployeeDialogComponent } from '../employee-dialog/employee-dialog.component';
 
 @Component({
@@ -62,15 +63,25 @@ export class EmployeeComponent implements OnInit {
   }
 
   deleteEmployee(id: number){
-    this.api.deleteEmployee(id).subscribe({
-      next: (result)=>{
-        alert("Deleted Successfully");
-        this.getAllEmployee();
-      },
-      error: ()=>{
-        alert("Error while deleting!!");
+
+    this.dialog.open(ConfirmDialogComponent, {
+      data: 'Do you Want to Delete Employee Detail?'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'confirm'){
+
+        this.api.deleteEmployee(id).subscribe({
+          next: (result)=>{
+            alert("Deleted Successfully");
+            this.getAllEmployee();
+          },
+          error: ()=>{
+            alert("Error while deleting!!");
+          }
+        })
+
       }
     })
+    
   }
 
 
