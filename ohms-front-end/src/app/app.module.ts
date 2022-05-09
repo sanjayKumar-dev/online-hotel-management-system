@@ -43,6 +43,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { ToastrModule } from 'ngx-toastr';
+import { RoomComponent } from './components/room/room.component';
+import { RoomDialogComponent } from './components/room-dialog/room-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { ToastrModule } from 'ngx-toastr';
     RoomBookComponent,
     RoomBookDialogComponent,
     BookingOperationComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    RoomComponent,
+    RoomDialogComponent
   ],
   imports: [
     BrowserModule,

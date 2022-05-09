@@ -21,7 +21,7 @@ export class EmployeeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, 
+  constructor(private dialog: MatDialog,
     private api: EmployeeService,
     private toastr: ToastrService) { }
 
@@ -90,7 +90,7 @@ export class EmployeeComponent implements OnInit {
 
       }
     })
-    
+
   }
 
 
