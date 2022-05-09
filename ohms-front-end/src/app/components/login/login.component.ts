@@ -28,7 +28,14 @@ export class LoginComponent implements OnInit {
 
     if(localStorage.getItem('role') === 'ROLE_OWNER'){
       this.router.navigate(['owner']);
-    }else{
+    }
+    else if(localStorage.getItem('role') === 'ROLE_MANAGER'){
+      this.router.navigate(['manager']);
+    }
+    else if(localStorage.getItem('role') === 'ROLE_RECEPTION'){
+      this.router.navigate(['reception']);
+    }
+    else{
       console.log(localStorage.getItem('role'));
       
     }
@@ -50,6 +57,17 @@ export class LoginComponent implements OnInit {
             });
             this.router.navigate(['owner']);
             
+          } else if(setRole === 'ROLE_MANAGER'){
+            this.toastr.success("Login ","Login Successfully", {
+              timeOut: 1000,
+            });
+            this.router.navigate(['manager']);
+
+          } else if(setRole === 'ROLE_RECEPTION'){
+            this.toastr.success("Login ","Login Successfully", {
+              timeOut: 1000,
+            });
+            this.router.navigate(['reception']);
           }
         },
         error: (err)=>{

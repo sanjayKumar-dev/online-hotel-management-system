@@ -1,0 +1,21 @@
+<mat-nav-list>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/reception/home">
+        <mat-icon>home</mat-icon> Home
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/reception/guest" >
+        <mat-icon>person</mat-icon> Guest
+   </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/reception/roombooking">
+        <mat-icon>book</mat-icon> Room Booking
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/reception/bookingoperation">
+        <mat-icon>assignment</mat-icon> Booking Operation
+    </a>
+</mat-nav-list>
+
+<footer class="footer">
+    <button mat-raised-button color="warn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</footer>

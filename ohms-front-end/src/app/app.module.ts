@@ -45,6 +45,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 import { RoomComponent } from './components/room/room.component';
 import { RoomDialogComponent } from './components/room-dialog/room-dialog.component';
+import { ManagerComponent } from './components/manager/manager.component';
+import { ManagerSidenavComponent } from './components/manager-sidenav/manager-sidenav.component';
+import { ReceptionComponent } from './components/reception/reception.component';
+import { ReceptionSidenavComponent } from './components/reception-sidenav/reception-sidenav.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { RoomDialogComponent } from './components/room-dialog/room-dialog.compon
     BookingOperationComponent,
     ConfirmDialogComponent,
     RoomComponent,
-    RoomDialogComponent
+    RoomDialogComponent,
+    ManagerComponent,
+    ManagerSidenavComponent,
+    ReceptionComponent,
+    ReceptionSidenavComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

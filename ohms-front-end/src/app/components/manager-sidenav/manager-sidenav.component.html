@@ -1,0 +1,27 @@
+<mat-nav-list>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/manager/home">
+        <mat-icon>home</mat-icon> Home
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/manager/guest" >
+        <mat-icon>person</mat-icon> Guest
+   </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/manager/inventory">
+        <mat-icon>inventory</mat-icon> Inventory
+   </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/manager/roombooking">
+        <mat-icon>book</mat-icon> Room Booking
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/manager/bookingoperation">
+        <mat-icon>assignment</mat-icon> Booking Operation
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/manager/room">
+        <mat-icon>bed</mat-icon> Room
+    </a>
+</mat-nav-list>
+
+<footer class="footer">
+    <button mat-raised-button color="warn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</footer>
