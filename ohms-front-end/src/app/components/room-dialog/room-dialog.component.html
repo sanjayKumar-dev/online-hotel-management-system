@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Room</h1>
+<div mat-dialog-content>
+
+    <form [formGroup]="roomForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Room Number</mat-label>
+            <input formControlName="roomId" matInput placeholder="Enter Room Number">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Room Type</mat-label>
+            <input formControlName="roomType" matInput placeholder="Enter Room Type">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Number of beds</mat-label>
+            <input formControlName="numberOfBeds" type="number" matInput placeholder="Enter Number of beds">
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <input formControlName="status" matInput placeholder="Enter Status">
+        </mat-form-field> -->
+        <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input formControlName="price" matInput type="double" placeholder="Enter Price">
+        </mat-form-field>
+        
+    </form>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addRoom()">{{actionBtn}}</button>
+</div>
+
