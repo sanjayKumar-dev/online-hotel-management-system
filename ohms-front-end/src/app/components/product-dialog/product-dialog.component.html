@@ -4,15 +4,30 @@
     <form [formGroup]="productForm">
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input formControlName="productName" matInput placeholder="Enter Product Name" >
+            <input formControlName="productName" id="productName" matInput  placeholder="Enter Product Name" >
+            <mat-error *ngIf="(productForm.controls['productName'].errors)">
+                Enter valid name
+            </mat-error>
+            <mat-error *ngIf="(productForm.controls['productName'].hasError('minLength'))">
+                Name should be atleat 3 characters
+            </mat-error>
+            <mat-error *ngIf="(productForm.controls['productName'].hasError('pattern'))">
+                Can't contains number
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
             <input formControlName="productCategory" matInput placeholder="Enter Product Category">
+            <mat-error *ngIf="(productForm.controls['productCategory'].errors)">
+                Product Category should be atleat 3 characters
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Quantity</mat-label>
             <input formControlName="quantity" matInput type="number" placeholder="Enter Quantity">
+            <mat-error *ngIf="(productForm.controls['quantity'].errors)">
+                quantity should be atleat  characters
+            </mat-error>
         </mat-form-field>
         
     </form>
@@ -20,5 +35,5 @@
 
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
-    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addProduct()">{{actionBtn}}</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" [disabled]="!productForm.valid" (click)="addProduct()">{{actionBtn}}</button>
 </div>

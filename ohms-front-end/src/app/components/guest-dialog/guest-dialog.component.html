@@ -5,27 +5,43 @@
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input formControlName="guestName" matInput placeholder="Enter Guest Name">
+            <mat-error *ngIf="(guestForm.controls['guestName'].errors)">
+                Enter valid name
+            </mat-error>
         </mat-form-field>
+       
         <mat-form-field appearance="outline">
             <mat-label>Age</mat-label>
             <input formControlName="guestAge" matInput type="number" placeholder="Enter Guest Age">
+            <mat-error *ngIf="(guestForm.controls['guestAge'].errors)">
+                Age between 18 and 90
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Contact Number</mat-label>
             <input formControlName="guestContactNumber" matInput type="number" placeholder="Enter Guest Contact Number">
+            <mat-error *ngIf="(!guestForm.controls['guestContactNumber'].valid)">
+                Enter valid contact number
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Email Id</mat-label>
             <input formControlName="guestEmailId" matInput placeholder="Enter Guest Email Id">
+            <mat-error *ngIf="(!guestForm.controls['guestEmailId'].valid)">
+                Enter valid Email
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Address</mat-label>
             <input formControlName="guestAddress" matInput placeholder="Enter Guest Address">
+            <mat-error *ngIf="(!guestForm.controls['guestAddress'].valid) ">
+                Enter valid Address
+            </mat-error>
         </mat-form-field>
     </form>
 </div>
 
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
-    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addGuest()">{{actionBtn}}</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" [disabled]="!guestForm.valid" (click)="addGuest()">{{actionBtn}}</button>
 </div>

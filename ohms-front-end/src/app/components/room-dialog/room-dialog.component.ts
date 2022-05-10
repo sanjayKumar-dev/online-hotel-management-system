@@ -22,11 +22,11 @@ export class RoomDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.roomForm = this.formBuilder.group({
-      roomId: ['', Validators.required],
-      roomType: ['', Validators.required],
-      numberOfBeds: ['', Validators.required],
+      roomId: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      roomType: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern("^[a-zA-Z -']+")]],
+      numberOfBeds: ['', [Validators.required, Validators.min(1), Validators.max(4)]],
       status: false,
-      price: ['', Validators.required]
+      price: ['', [Validators.required, Validators.min(0)]]
     });
     if(this.editData){
       this.actionBtn = 'Update';

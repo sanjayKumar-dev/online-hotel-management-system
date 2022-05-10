@@ -22,11 +22,11 @@ export class GuestDialogComponent implements OnInit {
   ngOnInit(): void {
     this.guestForm = this.formBuilder.group({
       guestId: 0,
-      guestName: ['', Validators.required],
-      guestAge: ['', Validators.required],
-      guestContactNumber: ['', Validators.required],
-      guestEmailId: ['', Validators.required],
-      guestAddress: ['', Validators.required]
+      guestName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern("^[a-zA-Z -']+")]],
+      guestAge: ['', [Validators.required, Validators.min(18), Validators.max(90)]],
+      guestContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(10)]],
+      guestEmailId: ['', [Validators.required, Validators.email]],
+      guestAddress: ['', [Validators.required, Validators.minLength(5)]]
     });
     
     if(this.editData){

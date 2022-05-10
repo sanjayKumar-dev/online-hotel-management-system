@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { RoomBookService } from 'src/app/service/room-book.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
@@ -21,7 +22,8 @@ export class BookingOperationComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private dialog: MatDialog,
-    private api: RoomBookService) { }
+    private api: RoomBookService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllBooking();
@@ -51,19 +53,23 @@ export class BookingOperationComponent implements OnInit {
 
   checkIn(row: any){
 
-    if(row.checkInStatus === false && row.bookingStatus === 'Booked'){  
+    if(row.checkInStatus === false && row.bookingStatus === "Booked"){  
       this.dialog.open(ConfirmDialogComponent, {
         data: 'Are u Sure For Check-In?'
       }).afterClosed().subscribe(val=>{
         if(val === 'confirm'){
           this.api.checkIn(row.bookingId).subscribe({
             next: (result)=>{
-              alert("Check In successfull");
+              this.toastr.success("Check In successfull", "", {
+                timeOut: 3000
+              });
               this.getAllBooking();
             },
             error: (err)=>{
               console.log(err);
-              alert("Error in Check In!!");
+              this.toastr.error("Error in Check In", "", {
+                timeOut: 3000
+              });
             }
           })
         }
@@ -71,32 +77,36 @@ export class BookingOperationComponent implements OnInit {
     }
 
     else{
-      alert("Can't check-in when booking is not confirm !!");
+      this.toastr.warning("Booking is not Confirm or Guest is already checked-in", "", {timeOut: 3000});
     }
   }
 
   checkOut(row: any){
 
-    if(row.checkInStatus === 'true'){
+    if(row.checkInStatus === true && row.chekOutStatus === false){
       this.dialog.open(ConfirmDialogComponent, {
         data: 'Are u Sure For Check-Out?'
       }).afterClosed().subscribe(val=>{
         if(val === 'confirm'){
           this.api.checkOut(row.bookingId).subscribe({
             next: (result)=>{
-              alert("Check Out successfull");
+              this.toastr.success("Check Out successfull", "", {
+                timeOut: 3000
+              });
               this.getAllBooking();
             },
             error: (err)=>{
               console.log(err);
-              alert("Error in Check In!!");
+              this.toastr.error("Error in Check In", "", {
+                timeOut: 3000
+              });
             }
           })
         }
       })
     }
     else{
-      alert("Can't check-Out when check-in status is false");
+      this.toastr.warning("Guest is not checked-in or already checked-out", "", {timeOut: 3000});
     }
 
     
@@ -104,19 +114,19 @@ export class BookingOperationComponent implements OnInit {
 
   cancelBooking(row: any){
 
-    if(row.checkInStatus === 'false' && row.bookingStatus === 'Booked'){
+    if(row.checkInStatus === false && row.bookingStatus === 'Booked'){
       this.dialog.open(ConfirmDialogComponent, {
         data: 'Are u Sure For Cancelling this Booking?'
       }).afterClosed().subscribe(val=>{
         if(val === 'confirm'){
           this.api.cancelBooking(row.bookingId).subscribe({
             next: (result)=>{
-              alert("Canceled Booking");
+              this.toastr.success("Canceled Booking");
               this.getAllBooking();
             },
             error: (err)=>{
               console.log(err);
-              alert("Error in cancelling !!");            
+              this.toastr.error("Error in cancelling ");        
             }
           })          
         }
@@ -124,7 +134,7 @@ export class BookingOperationComponent implements OnInit {
     }
 
     else{
-      alert("Can't cancel the booking when guest is checked-in!!")
+      this.toastr.warning("Guest is checked-in or booking is not Confirm", "", {timeOut: 3000});
     }
   }
 

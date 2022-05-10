@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { InventoryService } from 'src/app/service/inventory.service';
+// import { ValidationService } from 'app/validation.service';
 
 @Component({
   selector: 'app-product-dialog',
@@ -22,9 +23,9 @@ export class ProductDialogComponent implements OnInit {
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
       productId: 0,
-      productName: ['', Validators.required],
-      productCategory: ['', Validators.required],
-      quantity: ['', Validators.required]
+      productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern("^[a-zA-Z -']+")]],
+      productCategory: ['', [Validators.required, Validators.minLength(3)]],
+      quantity: ['', [Validators.required, Validators.min(0)]]
     });
 
     if(this.editData){

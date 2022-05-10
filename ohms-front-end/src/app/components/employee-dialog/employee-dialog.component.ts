@@ -23,12 +23,12 @@ export class EmployeeDialogComponent implements OnInit {
   ngOnInit(): void {
     this.employeeForm = this.formBuilder.group({
       employeeId: 0,
-      employeeName: ['', Validators.required],
-      employeeAge: ['', Validators.required],
-      employeeSalary: ['', Validators.required],
+      employeeName: ['', [Validators.required,  Validators.minLength(3), Validators.maxLength(20),Validators.pattern("^[a-zA-Z -']+")]],
+      employeeAge: ['', [Validators.required, Validators.min(18), Validators.max(90)]],
+      employeeSalary: ['', [Validators.required, Validators.min(5000)]],
       department: ['', Validators.required],
-      address: ['', Validators.required],
-      employeePhoneNumber: ['', Validators.required]
+      address: ['', [Validators.required, Validators.minLength(5)]],
+      employeePhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(10)]]
     });
 
     if(this.editData){

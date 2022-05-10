@@ -5,27 +5,51 @@
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input formControlName="employeeName" matInput placeholder="Enter Name">
+            <mat-error *ngIf="(employeeForm.controls['employeeName'].errors)">
+                Enter valid name
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Age</mat-label>
             <input formControlName="employeeAge" matInput type="number" placeholder="Enter Age">
+            <mat-error *ngIf="(employeeForm.controls['employeeAge'].errors)">
+                Age between 18 and 90
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Salarly</mat-label>
             <input formControlName="employeeSalary" matInput type="double" placeholder="Enter Salarly">
+            <mat-error *ngIf="(employeeForm.controls['employeeSalary'].errors)">
+                Salarly can't less than 5000
+            </mat-error>            
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Department</mat-label>
-            <input formControlName="department" matInput placeholder="Enter Department Name">
+            <!-- <input formControlName="department" matInput placeholder="Enter Department Name"> -->
+            <mat-select formControlName="department" required>
+                <mat-option value="IT">IT</mat-option>
+                <mat-option value="Marketing">Marketing</mat-option>
+                <mat-option value="Housekeeping">Housekeeping</mat-option>
+                <mat-option value="Front Office">Front Office</mat-option>
+                <mat-option value="Accounts">Accounts</mat-option>
+                <mat-option value="Security">Security</mat-option>
+                <mat-option value="Food and Beverage">Food and Beverage</mat-option>
+            </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Address</mat-label>
             <input formControlName="address" matInput placeholder="Enter Address">
+            <mat-error *ngIf="(employeeForm.controls['address'].errors)">
+                Enter valid Address
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Contact Number</mat-label>
             <input formControlName="employeePhoneNumber" matInput type="number" placeholder="Enter Contact Number">
+            <mat-error *ngIf="(employeeForm.controls['employeePhoneNumber'].errors)">
+                Enter valid Contact Number
+            </mat-error>
         </mat-form-field>
         
     </form>
@@ -33,6 +57,6 @@
 
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
-    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addEmployee()">{{actionBtn}}</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" [disabled]="!employeeForm.valid" (click)="addEmployee()">{{actionBtn}}</button>
 </div>
 

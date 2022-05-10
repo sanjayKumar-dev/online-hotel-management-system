@@ -7,26 +7,41 @@
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input formControlName="guestName" matInput placeholder="Enter Guest Name">
+                <mat-error *ngIf="(guestForm.controls['guestName'].errors)">
+                    Enter valid name
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Age</mat-label>
                 <input formControlName="guestAge" matInput type="number" placeholder="Enter Guest Age">
+                <mat-error *ngIf="(guestForm.controls['guestAge'].errors)">
+                    Age between 18 and 90
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Contact Number</mat-label>
                 <input formControlName="guestContactNumber" matInput type="number" placeholder="Enter Guest Contact Number">
+                <mat-error *ngIf="(!guestForm.controls['guestContactNumber'].valid)">
+                    Enter valid contact number
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Email Id</mat-label>
                 <input formControlName="guestEmailId" matInput placeholder="Enter Guest Email Id">
+                <mat-error *ngIf="(!guestForm.controls['guestEmailId'].valid)">
+                    Enter valid Email
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Address</mat-label>
                 <input formControlName="guestAddress" matInput placeholder="Enter Guest Address">
+                <mat-error *ngIf="(!guestForm.controls['guestAddress'].valid) ">
+                    Enter valid Address
+                </mat-error>
             </mat-form-field>
 
             <div>
-            <button mat-raised-button color="primary" matStepperNext (click)="addGuest()">Next</button>
+            <button mat-raised-button color="primary" [disabled]="!guestForm.valid" matStepperNext (click)="addGuest()">Next</button>
             </div>
         </form>
         </mat-step>
@@ -40,21 +55,21 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Check-In and Check-out Date</mat-label>
-                    <mat-date-range-input [rangePicker]="picker" [min]="minDate">
-                        <input formControlName="checkInDate" matStartDate placeholder="Check-In-Date">
-                        <input formControlName="checkOutDate" matEndDate placeholder="Check-Out-Date">
+                    <mat-date-range-input [rangePicker]="picker" [min]="minDate" >
+                        <input formControlName="checkInDate" matStartDate [disabled]="bookingForm.controls['checkInDate'].valid" placeholder="Check-In-Date">
+                        <input formControlName="checkOutDate" matEndDate [disabled]="bookingForm.controls['checkOutDate'].valid" placeholder="Check-Out-Date">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Room Number</mat-label>
-                    <input formControlName="roomId" matInput placeholder="Enter Guest Contact Number">
+                    <input formControlName="roomId"  matInput [disabled]="!bookingForm.controls['roomId'].valid" placeholder="Enter Guest Contact Number">
                 </mat-form-field>
 
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-raised-button color="primary" matStepperNext (click)="addBookingDetails()">Next</button>
+                    <!-- <button mat-button matStepperPrevious>Back</button> -->
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="!bookingForm.valid" (click)="addBookingDetails()">Next</button>
                 </div>
             </form>
         </mat-step>
@@ -63,7 +78,7 @@
 
         <!-- Payment Form -->
         <mat-step label="Payment Details">
-            <label>Total Price : {{price}}</label>
+            <label>Total Price : {{bookingForm.controls['totalPrice'].value}}</label>
             <form [formGroup]="paymentForm">
                 <!-- <ng-template matStepLabel>Payment Details</ng-template> -->
                 
@@ -81,7 +96,7 @@
 
 
                 <div>
-                <button mat-raised-button color="primary" matStepperNext (click)="finalBooking()">Next</button>
+                <button mat-raised-button color="primary" matStepperNext [disabled]="!paymentForm.valid" (click)="finalBooking()">Next</button>
                 </div>
             </form>
 
@@ -91,7 +106,7 @@
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
         <div>
-            <button mat-button matStepperPrevious>Back</button>
+            <!-- <button mat-button matStepperPrevious>Back</button> -->
             <button mat-button (click)="stepper.reset()" (click)="resetData()">Reset</button>
         </div>
         </mat-step>

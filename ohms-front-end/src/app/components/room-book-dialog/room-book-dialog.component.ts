@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
+import { NEVER } from 'rxjs';
 import { RoomBookService } from 'src/app/service/room-book.service';
 
 @Component({
@@ -26,12 +27,18 @@ export class RoomBookDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.guestForm = this.formBuilder.group({
+      // guestId: 0,
+      // guestName: ['', Validators.required],
+      // guestAge: ['', Validators.required],
+      // guestContactNumber: ['', Validators.required],
+      // guestEmailId: ['', Validators.required],
+      // guestAddress: ['', Validators.required]
       guestId: 0,
-      guestName: ['', Validators.required],
-      guestAge: ['', Validators.required],
-      guestContactNumber: ['', Validators.required],
-      guestEmailId: ['', Validators.required],
-      guestAddress: ['', Validators.required]
+      guestName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern("^[a-zA-Z -']+")]],
+      guestAge: ['', [Validators.required, Validators.min(18), Validators.max(90)]],
+      guestContactNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(10)]],
+      guestEmailId: ['', [Validators.required, Validators.email]],
+      guestAddress: ['', [Validators.required, Validators.minLength(5)]]
     });
 
     this.bookingForm = this.formBuilder.group({
@@ -49,7 +56,7 @@ export class RoomBookDialogComponent implements OnInit {
     });
 
     this.paymentForm = this.formBuilder.group({
-      paymentMode: ['', Validators.required],
+      paymentMode: ['', [Validators.required, Validators.minLength(3)]],
       paymentStatus: ['', Validators.required],
       bookingID: ['', Validators.required]
     });
@@ -111,7 +118,7 @@ export class RoomBookDialogComponent implements OnInit {
         next: (result)=>{
           console.log(result);
           this.toastr.success("Booking Confirm", "Success", {
-            timeOut: 2000
+            disableTimeOut: true
           });
         },
         error: (err)=>{
