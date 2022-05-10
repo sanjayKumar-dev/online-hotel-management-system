@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Room Booking</h1>
 <div mat-dialog-content>
     <mat-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
+        <mat-step [stepControl]="guestForm">
         <form [formGroup]="guestForm">
             <ng-template matStepLabel>Guest Details</ng-template>
             <mat-form-field appearance="outline">
@@ -39,8 +39,8 @@
                 <!-- Check - In - Out Date -->
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Enter Check-In and Check-out Date</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
+                    <mat-label>Check-In and Check-out Date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [min]="minDate">
                         <input formControlName="checkInDate" matStartDate placeholder="Check-In-Date">
                         <input formControlName="checkOutDate" matEndDate placeholder="Check-Out-Date">
                     </mat-date-range-input>
@@ -63,9 +63,10 @@
 
         <!-- Payment Form -->
         <mat-step label="Payment Details">
+            <label>Total Price : {{price}}</label>
             <form [formGroup]="paymentForm">
                 <!-- <ng-template matStepLabel>Payment Details</ng-template> -->
-    
+                
                 <mat-form-field appearance="outline" >
                     <mat-label>Payment Mode</mat-label>
                     <input formControlName="paymentMode" matInput placeholder="Enter Guest Name" required>
@@ -77,8 +78,8 @@
                         <mat-option value="false">Payment Not Done</mat-option>
                     </mat-select>
                 </mat-form-field>
-                
-    
+
+
                 <div>
                 <button mat-raised-button color="primary" matStepperNext (click)="finalBooking()">Next</button>
                 </div>

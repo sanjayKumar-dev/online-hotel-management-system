@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Guest</h1>
+<h1 mat-dialog-title>Product</h1>
 <div mat-dialog-content>
 
     <form [formGroup]="productForm">
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input formControlName="productName" matInput placeholder="Enter Product Name">
+            <input formControlName="productName" matInput placeholder="Enter Product Name" >
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
@@ -14,6 +14,7 @@
             <mat-label>Quantity</mat-label>
             <input formControlName="quantity" matInput type="number" placeholder="Enter Quantity">
         </mat-form-field>
+        
     </form>
 </div>
 

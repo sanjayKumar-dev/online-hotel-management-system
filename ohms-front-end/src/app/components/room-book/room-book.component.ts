@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {formatDate} from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RoomBookService } from 'src/app/service/room-book.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { RoomBookDialogComponent } from '../room-book-dialog/room-book-dialog.component';
+import { ToastrService } from 'ngx-toastr';
+import { DateDialogComponent } from '../date-dialog/date-dialog.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-room-book',
@@ -20,26 +23,33 @@ export class RoomBookComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private api: RoomBookService) { }
+  dateForm!: FormGroup;
+  minDate = new Date();
+  constructor(private dialog: MatDialog, 
+    private api: RoomBookService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(formatDate(new Date(), 'yyyy-MM-dd', 'en'));
-    this.getRoomAvilabe();
-  }
-
-  currDate = {
-    date: formatDate(new Date(), 'yyyy-MM-dd', 'en')
-  }
-  openDialog(){
-    // this.dialog.open(RoomBookDialogComponent, {
-    //   width: '30%',
-    //   disableClose: true
-    // }).afterClosed().subscribe();
+    this.openDialog();
     
   }
 
-  getRoomAvilabe(){
-    this.api.getAvilableRoom(new Date()).subscribe({
+  openDialog(){
+    this.dialog.open(DateDialogComponent, {
+      
+    }).afterClosed().subscribe(val =>{
+      this.getRoomAvilabe(val);
+    })
+  }
+
+  dateForBooking ={
+    checkInDate: Date,
+    checkOutDate: Date
+  }
+  getRoomAvilabe(data: any){
+    this.dateForBooking.checkInDate = data.checkInDate;
+    this.dateForBooking.checkOutDate = data.checkOutDate;
+    this.api.getAvilableRoom(data.checkInDate, data.checkOutDate).subscribe({
       next: (result)=>{
         console.log(result);
         this.dataSource = new MatTableDataSource(result);
@@ -48,16 +58,31 @@ export class RoomBookComponent implements OnInit {
       },
       error: (err)=>{
         console.log(err);
-        alert("Error while Featching Data!!");        
+        this.toastr.error("Error While fetching data", "Error", {
+          timeOut: 2000
+        });
       }
     })
   }
   bookRoom(row: any){
-    this.dialog.open(RoomBookDialogComponent, {
-      width: '50%',
-      data: row,
-      disableClose: true
-    })
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '50%';
+    dialogConfig.data = {
+      roomId: row,
+      date: this.dateForBooking
+    }
+    this.dialog.open(RoomBookDialogComponent, dialogConfig)
+    //   {
+    //   width: '50%',
+    //   data: row,
+    //   disableClose: true
+    // })
+  }
+
+  search(){
+
   }
 
   applyFilter(event: Event) {

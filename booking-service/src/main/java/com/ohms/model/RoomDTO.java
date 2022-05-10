@@ -1,5 +1,6 @@
 package com.ohms.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RoomDTO {
 	
-	private int id;
+	private String id;
 	private Date date;
 	private String roomId;
 

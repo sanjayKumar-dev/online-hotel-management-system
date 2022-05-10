@@ -1,5 +1,6 @@
 package com.ohms.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,8 +31,9 @@ public class BookedRoomService {
 			bookedRoomRepository.save(bookedRooms);
 			return "Added room";
 		}
-		int id = roomDTO.getId();
+		String id = roomDTO.getId();
 		Date date = roomDTO.getDate();
+		
 		List<String> list = new ArrayList<>();
 		list.add(roomDTO.getRoomId());
 		BookedRooms bookedRooms = new BookedRooms(id, date, list);

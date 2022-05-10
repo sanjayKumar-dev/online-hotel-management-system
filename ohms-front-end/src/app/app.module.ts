@@ -50,6 +50,8 @@ import { ManagerSidenavComponent } from './components/manager-sidenav/manager-si
 import { ReceptionComponent } from './components/reception/reception.component';
 import { ReceptionSidenavComponent } from './components/reception-sidenav/reception-sidenav.component';
 import { HomeComponent } from './components/home/home.component';
+import { TestComponetComponent } from './components/test-componet/test-componet.component';
+import { DateDialogComponent } from './components/date-dialog/date-dialog.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { HomeComponent } from './components/home/home.component';
     ManagerSidenavComponent,
     ReceptionComponent,
     ReceptionSidenavComponent,
-    HomeComponent
+    HomeComponent,
+    TestComponetComponent,
+    DateDialogComponent
   ],
   imports: [
     BrowserModule,

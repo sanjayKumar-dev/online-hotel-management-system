@@ -11,8 +11,8 @@ export class RoomBookService {
   private url = "http://localhost:8083/booking";
   private guestUrl = "http://localhost:8081/guest";
 
-  getAvilableRoom(date: any){
-    return this.http.get<any>(this.url+"/getavilaberoom/"+date);
+  getAvilableRoom(cid: any, cod: any){
+    return this.http.get<any>(this.url+"/getavilaberoom/"+cid+"/"+cod);
   }
 
   addGuest(data: any){

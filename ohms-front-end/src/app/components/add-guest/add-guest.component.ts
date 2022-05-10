@@ -21,7 +21,7 @@ export class AddGuestComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  // emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   addGuestDetail(){
     // console.log(this.guest);

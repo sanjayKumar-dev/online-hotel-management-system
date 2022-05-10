@@ -1,12 +1,13 @@
 package com.ohms.service;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,9 @@ public class BookingService {
 	@Autowired
 	private BookedRoomRepository bookedRoomRepository;
 	
+	@Value("${room.service.url}")
+	private String roomurl;
+	
 	/*
 	 * This Method takes Booking object as input and get room price from 
 	 * room-service and calculate the total price.
@@ -69,6 +73,7 @@ public class BookingService {
 		Date startDate = booking.getCheckInDate();
 		Date endDate = booking.getCheckOutDate();
 		
+//		long diff = startDate.until(endDate, ChronoUnit.DAYS);
 		long diffInMillies = Math.abs(startDate.getTime() - endDate.getTime());
 	    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 		
@@ -120,11 +125,26 @@ public class BookingService {
 		booking.setPaymentMode(payment.getPaymentMode());
 		if(booking.isPaymentStatus() == true) {
 			booking.setBookingStatus("Booked");
-			RoomDTO roomDTO = new RoomDTO(booking.getBookingId(), booking.getCheckInDate(), booking.getRoomId());
-			bookedRoomService.addRoomToBooked(roomDTO);
+			
+			Date startDate = booking.getCheckInDate();
+			Date endDate = booking.getCheckOutDate();
+			char y = 'A'; //used for generating bookedRoom id
+			
+			long diffInMillies = Math.abs(startDate.getTime() - endDate.getTime());
+		    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		 
+			
+			for(int i=0; i<diff; i++) {
+				// Combination of bookingId and char I am making it as bookedRoom Id
+				String id = Integer.toString(booking.getBookingId()) + y++;  // Convert booking Id to string and then increment the char
+				//startDate.plusDays(i)
+				startDate.setDate(startDate.getDate() + i);
+				RoomDTO roomDTO = new RoomDTO(id, startDate, booking.getRoomId());
+				bookedRoomService.addRoomToBooked(roomDTO);
+				
+			}
 			finalBookingConfirmation(booking.getGuestId(), booking);
 		}
-		
 		updateBookingDetail(booking);		
 	}
 
@@ -176,30 +196,31 @@ public class BookingService {
 	
 	// Return the List of room available for particular date
 	
-	public List<Room> getAvilableRoom(Date date){
-		System.out.println(date);
-		String _uri = "http://localhost:8082/room/get";		
+	public List<Room> getAvilableRoom(Date checkindate, Date checkoutdate){
+		//String _uri = "http://localhost:8082/room/get";
+		String _uri = roomurl+"/room/get";		
 		List<Room> roomList = webClientBuilder.build().get()
 				.uri(_uri)
 				.retrieve().bodyToMono(new ParameterizedTypeReference<List<Room>>() {}).block();
-		BookedRooms bookedRooms = bookedRoomService.findByDate(date);
-		if(bookedRooms != null) {
-			List<String> bookedList = bookedRooms.getRoomIds();
-			Comparator<Room> compareByRoomId = (Room r1, Room r2)-> r1.getRoomId().compareTo(r2.getRoomId());
-			Collections.sort(roomList, compareByRoomId); // Sorted the roomList
-			Collections.sort(bookedList);  				 // Sorted the booked room list
-			int j = 0;
-			for(int i=0; i<roomList.size(); i++) {
-				if(roomList.get(i).getRoomId().equals(bookedList.get(j))) {
-					roomList.remove(i);
-					j++;
+		
+		long diffInMillies = Math.abs(checkindate.getTime() - checkoutdate.getTime());
+	    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		
+		for(int x=0; x<diff; x++) {
+			
+			checkindate.setDate(checkindate.getDate() + x);
+			Date date = checkindate;
+			BookedRooms bookedRooms = bookedRoomService.findByDate(date);
+			
+			if(bookedRooms != null) {
+				List<String> bookedList = bookedRooms.getRoomIds();				
+				for(int i=0; i<roomList.size(); i++) {
+					if(bookedList.contains(roomList.get(i).getRoomId())) {
+						roomList.remove(i);
+					}
 				}
 			}
 		}
 		return roomList;
 	}
-	
-	
-	
-
 }

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
 import { RoomBookService } from 'src/app/service/room-book.service';
 
 @Component({
@@ -10,19 +11,18 @@ import { RoomBookService } from 'src/app/service/room-book.service';
 })
 export class RoomBookDialogComponent implements OnInit {
 
-  firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
-  thirdFormGroup!: FormGroup;
-
   guestForm!: FormGroup;
   bookingForm!: FormGroup;
   paymentForm!: FormGroup;
-  
 
+  minDate = Date();
+
+  price = '';
   constructor(private formBuilder: FormBuilder,
     private api: RoomBookService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogRef: MatDialogRef<RoomBookDialogComponent>) { }
+    private dialogRef: MatDialogRef<RoomBookDialogComponent>,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.guestForm = this.formBuilder.group({
@@ -55,9 +55,8 @@ export class RoomBookDialogComponent implements OnInit {
     });
 
     this.bookingForm.controls['roomId'].setValue(this.editData.roomId);
-    // console.log(this.guestForm.value);
-    // console.log(this.bookingForm.value);
-    
+    this.bookingForm.controls['checkInDate'].setValue(this.editData.date.checkInDate);
+    this.bookingForm.controls['checkOutDate'].setValue(this.editData.date.checkOutDate);
   }
 
   addGuest(){
@@ -66,48 +65,60 @@ export class RoomBookDialogComponent implements OnInit {
       this.api.addGuest(this.guestForm.value).subscribe({
         next: (result)=>{
           this.bookingForm.controls['guestId'].setValue(result.guestId);
+          this.toastr.success("Guest Added", "",{
+            timeOut: 1000
+          });
         },
         error: (err)=>{
-          console.log(err);        
-          alert("Error While adding Guest!!");
+          console.log(err);
+          this.toastr.error("Error in adding Guest", "", {
+            timeOut: 2000
+          });
         }
       })
     }
-    
+
   }
 
   addBookingDetails(){
-    // console.log(this.bookingForm.value);
     if(this.bookingForm.valid){
+      console.log(this.bookingForm.value);
+
       this.api.addBookingDetails(this.bookingForm.value).subscribe({
         next: (result)=>{
           this.paymentForm.controls['bookingID'].setValue(result.bookingId);
           this.bookingForm.controls['totalPrice'].setValue(result.price);
-          alert("Added the Booking Details");
-          // console.log(this.bookingForm.value);          
-          // console.log(this.paymentForm.value);
-          
+          this.price = result.price
+          this.toastr.success("Added the Booking Details", "Success", {
+            timeOut: 2000
+          });
         },
         error: (err)=>{
           console.log(err);
-          alert("Error while add booking details");          
+          this.toastr.error("Error in Adding Booking Details", "Error", {
+            timeOut: 2000
+          });
         }
-      })
-    }    
+      });
+    }
   }
 
   finalBooking(){
     if(this.paymentForm.valid){
       console.log(this.paymentForm.value);
-      
+
       this.api.finalBooking(this.paymentForm.value).subscribe({
         next: (result)=>{
           console.log(result);
-          alert("Booking Confirm");          
+          this.toastr.success("Booking Confirm", "Success", {
+            timeOut: 2000
+          });
         },
         error: (err)=>{
           console.log(err);
-          alert("Error in Final Booking");          
+          this.toastr.error("Error in Final Booking", "", {
+            timeOut: 2000
+          });
         }
       })
     }

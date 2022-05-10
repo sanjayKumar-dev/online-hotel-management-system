@@ -1,5 +1,7 @@
 package com.ohms.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +55,6 @@ public class BookingController {
 	@PostMapping("/payment")
 	@Operation(summary = "Update payment details")
 	public ResponseEntity<?> addPaymentDetails(@RequestBody Payment payment) {
-//		System.out.println(payment.getBookingID());
-//		System.out.println(payment.getPaymentMode());
-//		System.out.println(payment.isPaymentStatus());
 		try {
 			bookingService.addPaymentDetail(payment.getBookingID(), payment);
 			return ResponseEntity.ok(new ResponseMessage("Booking Successfully"));
@@ -114,8 +113,15 @@ public class BookingController {
 	}
 	
 	
-	@GetMapping("/getavilaberoom/{date}")
-	public List<Room> getAvilableRoom(@PathVariable Date date){
-		return bookingService.getAvilableRoom(date);
+	@GetMapping("/getavilaberoom/{checkindate}/{checkoutdate}")
+	public List<Room> getAvilableRoom(@PathVariable Date checkindate, @PathVariable Date checkoutdate){
+		try {
+//			LocalDate cid = LocalDate.parse(checkindate);
+//			LocalDate cod = LocalDate.parse(checkoutdate);
+			return bookingService.getAvilableRoom(checkindate, checkoutdate);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return new ArrayList<Room>();
+		}
 	}
 }

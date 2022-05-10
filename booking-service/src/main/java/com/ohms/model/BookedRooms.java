@@ -1,5 +1,6 @@
 package com.ohms.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import lombok.Setter;
 public class BookedRooms {
 	
 	@Id
-	private int id;
+	private String id;
 	private Date date;
 	private List<String> roomIds;
 

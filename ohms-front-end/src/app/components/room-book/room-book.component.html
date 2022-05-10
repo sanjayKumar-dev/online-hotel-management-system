@@ -4,8 +4,9 @@
     </button>
     <span>Room Booking</span>
     <span class="example-spacer"></span>
-    <button mat-raised-button (click)="openDialog()"><mat-icon>book+</mat-icon></button>
+    <button mat-raised-button (click)="openDialog()"><mat-icon>search</mat-icon></button>
 </mat-toolbar>
+
 
 <div class="container">
   <div style="margin-top: 10px">
@@ -53,7 +54,7 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
             <td mat-cell *matCellDef="let row">
-                <button mat-icon-button color="primary" matTooltip="Book this" (click)="bookRoom(row)">
+                <button mat-icon-button color="primary" matTooltip="Book this" (click)="bookRoom(row.roomId)">
                     <mat-icon>add</mat-icon>
                 </button>
             </td>
