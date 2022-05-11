@@ -42,4 +42,12 @@ export class RoomBookService {
   cancelBooking(id: number){
     return this.http.get<any>(this.url+"/cancel/"+id);
   }
+
+  getBookingById(id: number){
+    return this.http.get<any>(this.url+"/get/"+id);
+  }
+
+  getGuestById(id: number){
+    return this.http.get<any>(this.guestUrl+"/get/"+id);
+  }
 }

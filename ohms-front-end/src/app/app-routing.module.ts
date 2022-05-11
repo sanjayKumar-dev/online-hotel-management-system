@@ -16,6 +16,7 @@ import { ReceptionComponent } from './components/reception/reception.component';
 import { ResponseMessageComponent } from './components/response-message/response-message.component';
 import { RoomBookComponent } from './components/room-book/room-book.component';
 import { RoomComponent } from './components/room/room.component';
+import { TestComponetComponent } from './components/test-componet/test-componet.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -67,7 +68,8 @@ const routes: Routes = [
   {path: 'bookingoperation', component: BookingOperationComponent},
   {path: 'room', component: RoomComponent},
   {path: 'department', component: DepartmentReportComponent},
-  {path: 'bookingReport', component: BookingReportComponent}
+  {path: 'bookingReport', component: BookingReportComponent},
+  {path: 'test', component: TestComponetComponent}
   
 ];
 

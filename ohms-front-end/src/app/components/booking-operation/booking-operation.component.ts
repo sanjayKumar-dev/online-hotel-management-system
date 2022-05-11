@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { RoomBookService } from 'src/app/service/room-book.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-booking-operation',
@@ -28,7 +29,12 @@ export class BookingOperationComponent implements OnInit {
   ngOnInit(): void {
     this.getAllBooking();
   }
-  openDialog(){
+
+  openPaymentReceipt(row: any){
+    this.dialog.open(PaymentDialogComponent, {
+      width: '50%',
+      data: row
+    })
 
   }
 

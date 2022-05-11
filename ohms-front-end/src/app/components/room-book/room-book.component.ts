@@ -25,18 +25,18 @@ export class RoomBookComponent implements OnInit {
 
   dateForm!: FormGroup;
   minDate = new Date();
-  constructor(private dialog: MatDialog, 
+  constructor(private dialog: MatDialog,
     private api: RoomBookService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.openDialog();
-    
+
   }
 
   openDialog(){
     this.dialog.open(DateDialogComponent, {
-      
+
     }).afterClosed().subscribe(val =>{
       this.getRoomAvilabe(val);
     })

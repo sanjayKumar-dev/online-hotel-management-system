@@ -103,7 +103,12 @@ public class BookingController {
 	@GetMapping("/get/{bookingId}")
 	@Operation(summary = "Return booking detail for requested bookingId")
 	public Booking getBookingById(@PathVariable int bookingId) {
-		return bookingService.getBookingById(bookingId);		
+		try {
+			return bookingService.getBookingById(bookingId);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			return null;
+		}		
 	}
 	
 	@GetMapping("/getbycheckindate/{checkInDate}")

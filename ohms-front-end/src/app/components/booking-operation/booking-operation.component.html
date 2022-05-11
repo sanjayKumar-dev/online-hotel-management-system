@@ -40,12 +40,12 @@
 
             <ng-container matColumnDef="checkInDate">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Check-In Date</th>
-              <td mat-cell *matCellDef="let row"> {{row.checkInDate}} </td>
+              <td mat-cell *matCellDef="let row"> {{row.checkInDate | date}} </td>
             </ng-container>
 
             <ng-container matColumnDef="checkOutDate">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Check-Out Date</th>
-              <td mat-cell *matCellDef="let row"> {{row.checkOutDate}} </td>
+              <td mat-cell *matCellDef="let row"> {{row.checkOutDate | date}} </td>
             </ng-container>
 
             <ng-container matColumnDef="checkInStatus">
@@ -86,7 +86,13 @@
                           matTooltipClass="example-tooltip-red"
                           (click)="cancelBooking(row)">
                     <mat-icon>cancel</mat-icon>
-                </button>
+                  </button>
+                  <button mat-icon-button
+                          matTooltip="print"
+                          (click)="openPaymentReceipt(row.bookingId)">
+                    <mat-icon>print</mat-icon>
+                  </button>
+                <!-- print -->
               </td>
             </ng-container>
 

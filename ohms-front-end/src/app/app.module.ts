@@ -56,6 +56,7 @@ import { DepartmentReportComponent } from './components/department-report/depart
 import {NgxPrintModule} from 'ngx-print';
 import { BookingReportComponent } from './components/booking-report/booking-report.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { MatTableExporterModule } from 'mat-table-exporter';
     TestComponetComponent,
     DateDialogComponent,
     DepartmentReportComponent,
-    BookingReportComponent
+    BookingReportComponent,
+    PaymentDialogComponent
   ],
   imports: [
     BrowserModule,
