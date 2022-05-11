@@ -18,6 +18,6 @@ public class EmailNotification {
         message.setText(body);
         message.setSubject(subject);
         mailSender.send(message);
-        System.out.println("Message Sent ...");
+        System.out.println("Email Message Sent ...");
     }
 }

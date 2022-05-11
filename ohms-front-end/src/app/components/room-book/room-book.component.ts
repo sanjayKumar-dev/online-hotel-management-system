@@ -39,7 +39,7 @@ export class RoomBookComponent implements OnInit {
 
     }).afterClosed().subscribe(val =>{
       this.getRoomAvilabe(val);
-    })
+    });
   }
 
   dateForBooking ={
@@ -47,6 +47,12 @@ export class RoomBookComponent implements OnInit {
     checkOutDate: Date
   }
   getRoomAvilabe(data: any){
+    console.log(data);
+    console.log(data.checkInDate);
+    console.log(data.checkOutDate);
+    
+    
+    
     this.dateForBooking.checkInDate = data.checkInDate;
     this.dateForBooking.checkOutDate = data.checkOutDate;
     this.api.getAvilableRoom(data.checkInDate, data.checkOutDate).subscribe({

@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
 import { NEVER } from 'rxjs';
 import { RoomBookService } from 'src/app/service/room-book.service';
+import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-room-book-dialog',
@@ -23,7 +24,8 @@ export class RoomBookDialogComponent implements OnInit {
     private api: RoomBookService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogRef: MatDialogRef<RoomBookDialogComponent>,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.guestForm = this.formBuilder.group({
@@ -137,4 +139,7 @@ export class RoomBookDialogComponent implements OnInit {
     this.paymentForm.reset();
   }
 
+  printreceipt(){
+    console.log(this.bookingForm.controls['bookingId'].value);    
+  }
 }

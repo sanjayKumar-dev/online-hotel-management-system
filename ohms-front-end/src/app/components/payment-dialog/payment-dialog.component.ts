@@ -13,7 +13,7 @@ export class PaymentDialogComponent implements OnInit {
   guestAge = 0;
   address = "";
   checkInDate !: Date;
-  checkOutDate = new Date().toDateString();
+  checkOutDate !: Date;
   roomId = "";
   paymentMode = "";
   totalPrice = '';

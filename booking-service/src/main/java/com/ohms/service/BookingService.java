@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,6 +21,9 @@ import com.ohms.model.Payment;
 import com.ohms.model.Room;
 import com.ohms.model.RoomDTO;
 import com.ohms.notification.EmailNotification;
+import com.ohms.notification.MessageClass;
+import com.ohms.notification.MessageSender;
+import com.ohms.notification.RabbitMQConfiguration;
 import com.ohms.repository.BookedRoomRepository;
 import com.ohms.repository.BookingRepository;
 
@@ -43,6 +47,9 @@ public class BookingService {
 	
 	@Autowired
 	private BookedRoomRepository bookedRoomRepository;
+	
+	@Autowired
+    private MessageSender messageSender;
 	
 	@Value("${room.service.url}")
 	private String roomurl;
@@ -162,7 +169,10 @@ public class BookingService {
 		String body = "This mail is regarding confirmation for the Booking ID : "+
 				booking.getBookingId()+". Having Check-In-Date : "+ booking.getCheckInDate()
 				+". Your payment is done by mode : "+ booking.getPaymentMode()+".";
-		emailNotification.sendEmail(guestEmail, subject, body);
+		
+		messageSender.sendMessage(guestEmail, subject, body);
+        
+//		emailNotification.sendEmail(guestEmail, subject, body);
 	}
 	
 	
