@@ -27,12 +27,20 @@ public class DepartmentService {
 		return departmentRepository.findById(departmentId);
 	}
 	
-	public void updateDepartment(int deapartmentId, Department department) {
+	public void updateDepartment(Department department) {
 		departmentRepository.save(department);
 	}
 	
 	public void deleteDepartmet(int departmentId) {
 		departmentRepository.deleteById(departmentId);
 	}
-
+	
+	public Department getDepartmentByDepartmentName(String departmentName) {
+		try {
+			return departmentRepository.findByDepartmentName(departmentName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

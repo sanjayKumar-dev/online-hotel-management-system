@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "@mui/icons-material": "^5.6.2",
+    "mat-table-exporter": "^10.2.4",
+    "ngx-print": "^1.2.1",
     "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

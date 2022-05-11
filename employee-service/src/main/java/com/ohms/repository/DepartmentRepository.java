@@ -8,4 +8,6 @@ import com.ohms.model.Department;
 @Repository
 public interface DepartmentRepository extends MongoRepository<Department, Integer> {
 	
+	Department findByDepartmentName(String departmentName);
+	
 }

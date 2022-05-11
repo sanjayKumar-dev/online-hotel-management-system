@@ -52,6 +52,10 @@ import { ReceptionSidenavComponent } from './components/reception-sidenav/recept
 import { HomeComponent } from './components/home/home.component';
 import { TestComponetComponent } from './components/test-componet/test-componet.component';
 import { DateDialogComponent } from './components/date-dialog/date-dialog.component';
+import { DepartmentReportComponent } from './components/department-report/department-report.component';
+import {NgxPrintModule} from 'ngx-print';
+import { BookingReportComponent } from './components/booking-report/booking-report.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
   declarations: [
@@ -81,7 +85,9 @@ import { DateDialogComponent } from './components/date-dialog/date-dialog.compon
     ReceptionSidenavComponent,
     HomeComponent,
     TestComponetComponent,
-    DateDialogComponent
+    DateDialogComponent,
+    DepartmentReportComponent,
+    BookingReportComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +117,9 @@ import { DateDialogComponent } from './components/date-dialog/date-dialog.compon
     MatNativeDateModule,
     MatTooltipModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxPrintModule,
+    MatTableExporterModule
   ],
   providers: [
     MatDatepickerModule,

@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddGuestComponent } from './components/add-guest/add-guest.component';
 import { BookingOperationComponent } from './components/booking-operation/booking-operation.component';
+import { BookingReportComponent } from './components/booking-report/booking-report.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { DepartmentReportComponent } from './components/department-report/department-report.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { GuestCurdComponent } from './components/guest-curd/guest-curd.component';
 import { HomeComponent } from './components/home/home.component';
@@ -30,7 +32,9 @@ const routes: Routes = [
       {path: 'roombooking', component: RoomBookComponent},
       {path: 'bookingoperation', component: BookingOperationComponent},
       {path: 'room', component: RoomComponent},
-      {path: 'home', component: HomeComponent}
+      {path: 'home', component: HomeComponent},
+      {path: 'bookingReport', component: BookingReportComponent},
+      {path: 'department', component: DepartmentReportComponent}
     ]
   },
   { 
@@ -61,7 +65,9 @@ const routes: Routes = [
   {path: 'employee', component: EmployeeComponent},
   {path: 'roombooking', component: RoomBookComponent},
   {path: 'bookingoperation', component: BookingOperationComponent},
-  {path: 'room', component: RoomComponent}
+  {path: 'room', component: RoomComponent},
+  {path: 'department', component: DepartmentReportComponent},
+  {path: 'bookingReport', component: BookingReportComponent}
   
 ];
 

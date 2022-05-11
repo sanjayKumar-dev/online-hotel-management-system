@@ -9,6 +9,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }
 
   private url = "http://localhost:8084/employee";
+  private departmentUrl = "http://localhost:8084/department/get"
 
   postEmployee(data: any){
     return this.http.post<any>(this.url+"/add", data);
@@ -24,5 +25,11 @@ export class EmployeeService {
 
   deleteEmployee(id: number){
     return this.http.delete<any>(this.url+"/delete/"+id);
+  }
+
+  getDepartment(){
+    return this.http.get<any>(this.departmentUrl);
+    console.log("In servece");
+    
   }
 }
