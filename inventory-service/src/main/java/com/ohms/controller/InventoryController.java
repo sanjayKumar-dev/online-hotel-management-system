@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class InventoryController {
 	
 	@PostMapping("/add")
 	@Operation(summary = "To add new Product into Inventory Database")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER')")
 	public ResponseEntity<?> addProduct(@RequestBody Product product) {
 		try {
 			inventoryService.addProduct(product);
@@ -57,6 +59,7 @@ public class InventoryController {
 	
 	@GetMapping("/get")
 	@Operation(summary = "Return all the Product Details in the form of list")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER')")
 	public List<Product> getAllProducts(){
 		try {
 			return inventoryService.getAllProducts();
@@ -70,6 +73,7 @@ public class InventoryController {
 	
 	@GetMapping("/get/{productId}")
 	@Operation(summary = "Return Product Detail for requested id")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER')")
 	public Optional<Product> getProductById(@PathVariable int productId) {
 		try {
 			return inventoryService.getProductById(productId);
@@ -83,6 +87,7 @@ public class InventoryController {
 	
 	@PutMapping("/update")
 	@Operation(summary = "Update Product Detail for requested Id")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER')")
 	public ResponseEntity<?> updateProduct(@RequestBody Product product) {
 		try {
 			inventoryService.updateProduct(product);
@@ -98,6 +103,7 @@ public class InventoryController {
 	
 	@DeleteMapping("/delete/{productId}")
 	@Operation(summary = "Delete Product Detail for requested Id")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER')")
 	public ResponseEntity<?> deleteProduct(@PathVariable int productId) {
 		try {
 			inventoryService.deleteProduct(productId);
