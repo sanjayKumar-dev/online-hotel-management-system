@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,18 +43,21 @@ public class BookingController {
 	
 	@PostMapping("/add")
 	@Operation(summary = "To add new Booking Detail")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public ResponseEntity<?> addBookingDetail(@RequestBody Booking booking) {
 		return bookingService.addBookingDetail(booking);
 	}
 	
 	@GetMapping("/get")
 	@Operation(summary = "Return List of booking details")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public List<Booking> getAllBookingDetails(){
 		return bookingService.getAllBookingDetails();
 	}
 	
 	@PostMapping("/payment")
 	@Operation(summary = "Update payment details")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public ResponseEntity<?> addPaymentDetails(@RequestBody Payment payment) {
 		try {
 			bookingService.addPaymentDetail(payment.getBookingID(), payment);
@@ -66,6 +70,7 @@ public class BookingController {
 	
 	@GetMapping("/cancel/{bookingId}")
 	@Operation(summary = "Cancel the existing booking")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public ResponseEntity<?> cancelBookink(@PathVariable int bookingId) {
 		try {
 			bookingService.cancelBooking(bookingId);
@@ -78,6 +83,7 @@ public class BookingController {
 	
 	@GetMapping("/checkin/{bookingId}")
 	@Operation(summary = "Check In")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public ResponseEntity<?> checkIn(@PathVariable int bookingId){
 		try {
 			bookingService.checkIn(bookingId);
@@ -90,6 +96,7 @@ public class BookingController {
 	
 	@GetMapping("/checkout/{bookingId}")
 	@Operation(summary = "Check In")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public ResponseEntity<?> checkOut(@PathVariable int bookingId){
 		try {
 			bookingService.checkOut(bookingId);
@@ -102,6 +109,7 @@ public class BookingController {
 	
 	@GetMapping("/get/{bookingId}")
 	@Operation(summary = "Return booking detail for requested bookingId")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public Booking getBookingById(@PathVariable int bookingId) {
 		try {
 			return bookingService.getBookingById(bookingId);
@@ -113,12 +121,14 @@ public class BookingController {
 	
 	@GetMapping("/getbycheckindate/{checkInDate}")
 	@Operation(summary = "Return List of booking detail for particular checkInDate")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public List<Booking> getBookingsByCheckInDate(@PathVariable Date checkInDate){
 		return bookingService.getBookingsByCheckInDate(checkInDate);
 	}
 	
 	
 	@GetMapping("/getavilaberoom/{checkindate}/{checkoutdate}")
+	@PreAuthorize("hasRole('OWNER') or hasRole('MANAGER') or hasRole('RECEPTION')")
 	public List<Room> getAvilableRoom(@PathVariable Date checkindate, @PathVariable Date checkoutdate){
 		try {
 //			LocalDate cid = LocalDate.parse(checkindate);
