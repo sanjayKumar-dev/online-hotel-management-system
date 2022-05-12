@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ public class EmployeeController {
 	
 	@PostMapping("/add")
 	@Operation(summary = "To add new Employee into Inventory Database")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
 		try {
 			employeeService.addEmployee(employee);
@@ -54,6 +56,7 @@ public class EmployeeController {
 	
 	@GetMapping("/get")
 	@Operation(summary = "Return all the Employee Details in the form of list")
+	@PreAuthorize("hasRole('OWNER')")
 	public List<Employee> getAllEmployee(){
 		try {
 			return employeeService.getAllEmployee();
@@ -67,6 +70,7 @@ public class EmployeeController {
 	
 	@GetMapping("/get/{employeeId}")
 	@Operation(summary = "Return Employee Detail for requested id")
+	@PreAuthorize("hasRole('OWNER')")
 	public Optional<Employee> getEmployeeById(@PathVariable int employeeId) {
 		try {
 			return employeeService.getEmployeeById(employeeId);
@@ -80,6 +84,7 @@ public class EmployeeController {
 	
 	@PutMapping("/update")
 	@Operation(summary = "Update Employee Detail for requested Id")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateRoom(@RequestBody Employee employee) {
 		try {
 			employeeService.updateEmployee(employee);
@@ -94,6 +99,7 @@ public class EmployeeController {
 	
 	@DeleteMapping("/delete/{employeeId}")
 	@Operation(summary = "Delete Employee Detail for requested Id")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> deleteEmployee(@PathVariable int employeeId) {
 		try {
 			employeeService.deleteEmployee(employeeId);
