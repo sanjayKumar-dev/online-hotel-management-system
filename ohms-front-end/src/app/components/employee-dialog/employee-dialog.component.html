@@ -21,7 +21,7 @@
             <input formControlName="employeeSalary" matInput type="double" placeholder="Enter Salarly">
             <mat-error *ngIf="(employeeForm.controls['employeeSalary'].errors)">
                 Salarly can't less than 5000
-            </mat-error>            
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -51,7 +51,7 @@
                 Enter valid Contact Number
             </mat-error>
         </mat-form-field>
-        
+
     </form>
 </div>
 
@@ -59,4 +59,3 @@
     <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
     <button style="margin-left: 8px;" mat-raised-button color="primary" [disabled]="!employeeForm.valid" (click)="addEmployee()">{{actionBtn}}</button>
 </div>
-

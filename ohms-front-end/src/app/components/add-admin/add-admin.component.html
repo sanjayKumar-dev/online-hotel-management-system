@@ -1,0 +1,30 @@
+<form [formGroup]="addAdminForm">
+    <mat-form-field appearance="outline">
+        <mat-label>username</mat-label>
+        <input formControlName="username" type="text" matInput placeholder="username">
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>email</mat-label>
+        <input formControlName="email" type="text" matInput placeholder="email">
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>roles</mat-label>
+        <!-- <input type="text" matInput placeholder="roles"> -->
+        <mat-select formControlName="roles">
+            <mat-option value="manager">Manager</mat-option>
+            <mat-option value="reception">Reception</mat-option>
+            <mat-option value="owner">Owner</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>password</mat-label>
+        <input formControlName="password" type="password" matInput placeholder="password">
+    </mat-form-field>
+</form>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close="">Close</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" mat-dialog-close="" [disabled]="!addAdminForm.valid" (click)="addAdmin()">Save</button>
+</div>

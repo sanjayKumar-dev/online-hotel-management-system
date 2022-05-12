@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AddAdminComponent } from '../add-admin/add-admin.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -31,5 +32,13 @@ export class OwnerSidenavComponent implements OnInit {
       }
     })
 
+  }
+
+  addAdmin(){
+    console.log("Clicked Add Admin");
+    this.dialog.open(AddAdminComponent, {
+      width: '30%'
+    })
+    
   }
 }

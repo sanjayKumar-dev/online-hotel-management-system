@@ -81,7 +81,7 @@ export class EmployeeDialogComponent implements OnInit {
         console.log(err);
         this.toastr.error("Error while Updating Detail", "Error", {
           timeOut: 2000
-        });        
+        });
       }
     })
   }

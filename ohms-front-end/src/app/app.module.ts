@@ -57,6 +57,7 @@ import {NgxPrintModule} from 'ngx-print';
 import { BookingReportComponent } from './components/booking-report/booking-report.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import { AddAdminComponent } from './components/add-admin/add-admin.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     DateDialogComponent,
     DepartmentReportComponent,
     BookingReportComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    AddAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -121,11 +123,14 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxPrintModule,
-    MatTableExporterModule
+    MatTableExporterModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatFormFieldModule
   ],
   bootstrap: [AppComponent]
 })
