@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit {
     });
 
     if(localStorage.getItem('role') === 'ROLE_OWNER'){
-      this.router.navigate(['owner']);
+      this.router.navigate(['owner/bookingoperation']);
     }
     else if(localStorage.getItem('role') === 'ROLE_MANAGER'){
-      this.router.navigate(['manager']);
+      this.router.navigate(['manager/bookingoperation']);
     }
     else if(localStorage.getItem('role') === 'ROLE_RECEPTION'){
-      this.router.navigate(['reception']);
+      this.router.navigate(['reception/bookingoperation']);
     }
     else{
       console.log(localStorage.getItem('role'));
@@ -55,19 +55,19 @@ export class LoginComponent implements OnInit {
             this.toastr.success("Login ","Login Successfully", {
               timeOut: 1000,
             });
-            this.router.navigate(['owner']);
+            this.router.navigate(['owner/bookingoperation']);
             
           } else if(setRole === 'ROLE_MANAGER'){
             this.toastr.success("Login ","Login Successfully", {
               timeOut: 1000,
             });
-            this.router.navigate(['manager']);
+            this.router.navigate(['manager/bookingoperation']);
 
           } else if(setRole === 'ROLE_RECEPTION'){
             this.toastr.success("Login ","Login Successfully", {
               timeOut: 1000,
             });
-            this.router.navigate(['reception']);
+            this.router.navigate(['reception/bookingoperation']);
           }
         },
         error: (err)=>{

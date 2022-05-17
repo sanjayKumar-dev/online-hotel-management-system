@@ -60,16 +60,17 @@ const routes: Routes = [
       {path: 'bookingoperation', component: BookingOperationComponent},
       {path: 'home', component: HomeComponent}
     ]
-  },
-  {path: 'guestcurd', component: GuestCurdComponent},
-  {path: 'inventory', component: InventoryComponent},
-  {path: 'employee', component: EmployeeComponent},
-  {path: 'roombooking', component: RoomBookComponent},
-  {path: 'bookingoperation', component: BookingOperationComponent},
-  {path: 'room', component: RoomComponent},
-  {path: 'department', component: DepartmentReportComponent},
-  {path: 'bookingReport', component: BookingReportComponent},
-  {path: 'test', component: TestComponetComponent}
+  }
+  // ,
+  // {path: 'guestcurd', component: GuestCurdComponent},
+  // {path: 'inventory', component: InventoryComponent},
+  // {path: 'employee', component: EmployeeComponent},
+  // {path: 'roombooking', component: RoomBookComponent},
+  // {path: 'bookingoperation', component: BookingOperationComponent},
+  // {path: 'room', component: RoomComponent},
+  // {path: 'department', component: DepartmentReportComponent},
+  // {path: 'bookingReport', component: BookingReportComponent},
+  // {path: 'test', component: TestComponetComponent}
   
 ];
 

@@ -54,6 +54,9 @@ public class BookingService {
 	@Value("${room.service.url}")
 	private String roomurl;
 	
+	@Value("${guest.service.url}")
+	private String guesturl;
+	
 	/*
 	 * This Method takes Booking object as input and get room price from 
 	 * room-service and calculate the total price.
@@ -72,7 +75,7 @@ public class BookingService {
 		int getId = sequenceService.getNextSequence("booking");
 		booking.setBookingId(getId);
 		
-		String _uri = "http://localhost:8082/room/getroomprice/"+booking.getRoomId();
+		String _uri = roomurl+"/room/getroomprice/"+booking.getRoomId();
 		double roomPrice = webClientBuilder.build().get()
 				.uri(_uri)
 				.retrieve().bodyToMono(new ParameterizedTypeReference<Double>() {}).block();
@@ -160,7 +163,7 @@ public class BookingService {
 	*/
 	
 	public void finalBookingConfirmation(int guestID, Booking booking) {
-		String _uri = "http://localhost:8081/guest/getemailid/"+guestID;
+		String _uri = guesturl+"/guest/getemailid/"+guestID;
 		String guestEmail = webClientBuilder.build().get()
 				.uri(_uri)
 				.retrieve().bodyToMono(new ParameterizedTypeReference<String>() {}).block();
